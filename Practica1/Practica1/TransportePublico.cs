@@ -12,10 +12,10 @@ namespace Practica1
 
         public TransportePublico(int pasajeros) 
         { 
-            Getpasajeros = pasajeros;
+            Traerpasajeros = pasajeros;
         }
 
-        public int Getpasajeros { get; set; }
+        public int Traerpasajeros { get; }
 
         public abstract string Avanzar();
 

@@ -12,12 +12,12 @@ namespace Practica1
 
         public override string Avanzar()
         {
-            return $"El omnibus con {Getpasajeros} pasajeros avanza a la siguiente parada.";
+            return $"El omnibus con {Traerpasajeros} pasajeros avanza a la siguiente parada.";
         }
 
         public override string Detener()
         {
-            return $"El omnibus con {Getpasajeros} pasajeros se va a detener.";
+            return $"El omnibus con {Traerpasajeros} pasajeros se va a detener en la siguiente parada.";
         }
     }
 }

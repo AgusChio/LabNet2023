@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Practica1
 {
     internal class Program
@@ -25,16 +26,21 @@ namespace Practica1
 
                     if (!int.TryParse(input, out pasajeros))
                     {
-                        Console.WriteLine("No te lo dije antes por que pense que era obvio, no se peuden ingresar letras ya que te pidoque ingreses un numero entre el 1 y el 4, gracias.");
+                        Console.WriteLine("eh no se aceptan letras y palabras. Vamos de nuevo ingresa un numero entre entre el 1 al 4");
                     }
                     else if (pasajeros >= 1 && pasajeros <= 4)
                     {
                         esNumero = true;
                     }
-                    else
+                    else if(pasajeros > 4)
                     {
-                        Console.WriteLine("Te dije que ingreses una cantidad entre 1 a 4 de pasajeros. Intenta de nuevo, creo en vos!");
+                        Console.WriteLine("Em creo que no es un auto de payasos para que ingreses esa cantidad");
                     }
+                    else if (pasajeros <= 0)
+                    {
+                        Console.WriteLine("Que estas ingresando loco? Dale vos podes un numero entre el 1 y 4.");
+                    }
+
                     transportes[i] = new Taxi(pasajeros);
                 }
 
@@ -52,16 +58,21 @@ namespace Practica1
 
                     if (!int.TryParse(input, out pasajeros))
                     {
-                        Console.WriteLine("Ya te lo dije no podes ingresar palabras o letras. Ahora se ingresa de un numero que este entre el 1 y el 300, gracias.");
+                        Console.WriteLine("eh no se aceptan letras y palabras. Vamos de nuevo ingresa un numero entre entre el 1 al 300");
                     }
                     else if (pasajeros >= 1 && pasajeros <= 300)
                     {
                         esNumero = true;
                     }
-                    else
+                    else if (pasajeros > 300)
                     {
-                        Console.WriteLine("Te dije que ingreses una cantidad entre 1 a 300 de pasajeros. Intenta de nuevo, creo en vos!");
+                        Console.WriteLine("Em esta bien que el micro sea de capacidad de 300 pero te pasaste. Vamos de nuevo, ingresa un numero del 1 al 300.");
                     }
+                    else if (pasajeros <= 0)
+                    {
+                        Console.WriteLine("Seguis loquito? Dale vos podes un numero entre el 1 y 300.");
+                    }
+
                     transportes[i + 5] = new Omnibus(pasajeros);
                 }
 
@@ -70,7 +81,20 @@ namespace Practica1
 
             foreach (TransportePublico transporte in transportes)
             {
-                Console.Write($"{transporte.GetType().Name}: {transporte.Getpasajeros}" + "pasajeros");
+                Console.Write($"Trasporte publico {transporte.GetType().Name}: {transporte.Traerpasajeros}" + " pasajeros.");
+
+                if (transporte is Taxi taxi)
+                {
+                    Console.WriteLine(taxi.Avanzar());
+                    Console.WriteLine(taxi.Detener());
+                }
+                else if (transporte is Omnibus omnibus)
+                {
+                    Console.WriteLine(omnibus.Avanzar());
+                    Console.WriteLine(omnibus.Detener());
+                }
+
+                Console.WriteLine();
             }
 
             Console.ReadKey();
