@@ -16,9 +16,11 @@ namespace Practica2Ejercicio3
                 Logic.ThrowException();
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
                 Console.WriteLine("Ajá atrape una excepcion, vas a mi coleccion de excepciones muajajaja");
+                Console.WriteLine("Tipo de excepción: " + ex.GetType());
+                Console.WriteLine("Mensaje de excepción: " + ex.Message);
             }
 
             Console.WriteLine("La captura llego a su fin, mañana sera otro dia para capturar mas! Si desea salir presione ENTER");
