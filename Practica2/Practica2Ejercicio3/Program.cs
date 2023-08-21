@@ -23,8 +23,11 @@ namespace Practica2Ejercicio3
                 Console.WriteLine("Mensaje de excepción: " + ex.Message);
             }
 
-            Console.WriteLine("La captura llego a su fin, mañana sera otro dia para capturar mas! Si desea salir presione ENTER");
-            Console.ReadLine();
+            finally
+            {
+                Console.WriteLine("La captura llego a su fin, mañana sera otro dia para capturar mas! Si desea salir presione ENTER");
+                Console.ReadLine();
+            }
         }
     }
 }
