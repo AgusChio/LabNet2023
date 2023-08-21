@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B2127E19-19A6-46FE-AB73-3C603AF1CBA5}</ProjectGuid>
+    <ProjectGuid>{73B1824B-A94C-4CB5-AF73-75764921C43E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Practica2</RootNamespace>
-    <AssemblyName>Practica2</AssemblyName>
+    <RootNamespace>Practica2Ejercicio2</RootNamespace>
+    <AssemblyName>Practica2Ejercicio2</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\DivisionExceptions.cs" />
+    <Compile Include="Exceptions\DivisionWithTwoNumbersException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

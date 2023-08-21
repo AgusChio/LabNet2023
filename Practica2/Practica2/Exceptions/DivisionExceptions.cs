@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Practica2.Exceptions
 {
-    internal class DivisionExeptions
+    internal class DivisionExceptions
     {
         public static void ThrowException()
         {
