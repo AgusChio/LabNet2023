@@ -1,4 +1,4 @@
-namespace Practica.Data
+namespace Practica.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -6,28 +6,25 @@ namespace Practica.Data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Categories
+    public partial class Shippers
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Categories()
+        public Shippers()
         {
-            Products = new HashSet<Products>();
+            Orders = new HashSet<Orders>();
         }
 
         [Key]
-        public int CategoryID { get; set; }
+        public int ShipperID { get; set; }
 
         [Required]
-        [StringLength(15)]
-        public string CategoryName { get; set; }
+        [StringLength(40)]
+        public string CompanyName { get; set; }
 
-        [Column(TypeName = "ntext")]
-        public string Description { get; set; }
-
-        [Column(TypeName = "image")]
-        public byte[] Picture { get; set; }
+        [StringLength(24)]
+        public string Phone { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Products> Products { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

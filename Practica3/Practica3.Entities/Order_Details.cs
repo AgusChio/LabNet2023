@@ -1,4 +1,4 @@
-namespace Practica.Data
+namespace Practica.Entities
 {
     using System;
     using System.Collections.Generic;
