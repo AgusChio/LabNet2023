@@ -1,11 +1,6 @@
 ﻿
-using Practica.Entities;
 using Practica3.Logic;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Practica3.UI
 {
@@ -15,6 +10,7 @@ namespace Practica3.UI
         {
             SupplierManager suppliersManager = new SupplierManager();
             ShippersManager shippersManager = new ShippersManager();
+
             while (true)
             {
                 Console.WriteLine("Seleccione una opción:");

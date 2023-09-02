@@ -102,6 +102,7 @@ namespace Practica3.Logic
 
         public void UpdateSupplier()
         {
+            ShowAllSuppliers();
             Console.Write("Ingrese el ID del proveedor a actualizar: ");
             int supplierIDToUpdate = int.Parse(Console.ReadLine());
 
@@ -158,6 +159,8 @@ namespace Practica3.Logic
 
         public void DeleteSupplier()
         {
+            ShowAllSuppliers();
+
             Console.Write("Ingrese el ID del proveedor a eliminar: ");
             int supplierIDToDelete = int.Parse(Console.ReadLine());
 

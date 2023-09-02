@@ -120,6 +120,7 @@ namespace Practica3.Logic
                 {
                     _shippersLogic.Update(shipperToUpdate);
                     Console.WriteLine("Transportista actualizado exitosamente.");
+                    ShowAllShippers();
                 }
                 catch (Exception ex)
                 {
@@ -134,20 +135,12 @@ namespace Practica3.Logic
 
         public void DeleteShipper()
         {
-            List<Shippers> shippers = _shippersLogic.GetAll();
-            foreach (var shipper in shippers)
-            {
-                Console.WriteLine($"{shipper.ShipperID}: {shipper.CompanyName}");
-            }
+            ShowAllShippers();
 
             Console.Write("Ingrese el ID del transportista a eliminar: ");
-            if (!int.TryParse(Console.ReadLine(), out int shipperIDToDelete))
-            {
-                Console.WriteLine("ID no válido. Intente nuevamente.");
-                return;
-            }
+            int shipperIDToDelete = int.Parse(Console.ReadLine());
 
-            var shipperToDelete = shippers.Find(s => s.ShipperID == shipperIDToDelete);
+            Shippers shipperToDelete = _shippersLogic.GetById(shipperIDToDelete);
 
             if (shipperToDelete == null)
             {
