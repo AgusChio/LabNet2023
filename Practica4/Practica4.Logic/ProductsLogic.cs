@@ -1,9 +1,6 @@
 ﻿using Practica4.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Practica4.Logic
 {
@@ -30,6 +27,29 @@ namespace Practica4.Logic
             var producto789 = _context.Products.FirstOrDefault(producto => producto.ProductID == 789);
 
             return producto789;
+        }
+
+        public List <Products> GetProductsOrderedByName()
+        {
+            var productsOrderedByName = (from product in _context.Products
+                                         orderby product.ProductName
+                                         select product).ToList();
+
+            return productsOrderedByName;
+        }
+
+        public List<Products> GetproductOrderedByStock()
+        {
+            var productOrderedByStock = _context.Products
+                .OrderByDescending(p => p.UnitsInStock)
+                .ToList();
+
+            return productOrderedByStock;
+        }
+
+        public Products GetFirstProduct()
+        {
+            return _context.Products.FirstOrDefault();
         }
     }
 }

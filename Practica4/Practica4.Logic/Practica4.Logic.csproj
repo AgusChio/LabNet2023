@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseLogic.cs" />
+    <Compile Include="CategoryLogic.cs" />
+    <Compile Include="Consultas.cs" />
     <Compile Include="CustomerLogic.cs" />
     <Compile Include="CustomerOrderLogic.cs" />
     <Compile Include="ProductsLogic.cs" />

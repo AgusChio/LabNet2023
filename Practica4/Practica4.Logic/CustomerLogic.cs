@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Practica4.Logic
 {
@@ -32,6 +30,16 @@ namespace Practica4.Logic
             var namesCombined = customerNames.Select(name => $"{name.ToUpper()} | {name.ToLower()}").ToList();
 
             return namesCombined;
+        }
+
+        public List<Customers> Getfirst3CustomersInWA()
+        {
+            var first3CustomersInWA = _context.Customers
+                .Where(c => c.Region == "WA")
+                .Take(3) 
+                .ToList();
+
+            return first3CustomersInWA;
         }
     }
 }

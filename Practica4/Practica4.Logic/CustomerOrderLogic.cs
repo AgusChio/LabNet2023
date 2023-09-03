@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Practica4.Logic
 {
@@ -30,5 +28,15 @@ namespace Practica4.Logic
 
             return result;
         }
+
+        public List<Customers> GetCustomersWithOrder()
+        {
+            var customersWithOrder = _context.Customers
+            .Where(c => _context.Orders.Any(o => o.CustomerID == c.CustomerID))
+            .ToList();
+
+            return customersWithOrder;
+        }
     }
+
 }
