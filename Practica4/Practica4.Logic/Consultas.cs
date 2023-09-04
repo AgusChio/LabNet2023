@@ -101,6 +101,7 @@ namespace Practica4.Logic
             {
                 Console.WriteLine($"Product ID: {producto789.ProductID}");
                 Console.WriteLine($"Product Name: {producto789.ProductName}");
+                Console.WriteLine();
             }
             else
             {
@@ -190,14 +191,16 @@ namespace Practica4.Logic
 
         public static void ConsultarCategoriasAsociadasProductos()
         {
-            CategoryLogic categoryLogic = new CategoryLogic();
+            ProductCategoryLogic productCategoryLogic = new ProductCategoryLogic();
 
-            List<Categories> categoriasAsociadas = categoryLogic.GetCategoriesAssociatedWithProducts();
+            List<ProductCategory> productCategories = productCategoryLogic.GetProductCategories();
 
-            Console.WriteLine("Categorías asociadas a productos:");
-            foreach (var categoria in categoriasAsociadas)
+            Console.WriteLine("Productos y sus categorías asociadas:");
+            foreach (var productCategory in productCategories)
             {
-                Console.WriteLine($"ID: {categoria.CategoryID}, Nombre: {categoria.CategoryName}");
+                Console.WriteLine($"Producto: {productCategory.ProductName}");
+                Console.WriteLine($"Categoría: {productCategory.CategoryName}");
+                Console.WriteLine();
             }
 
             Console.ReadLine();
@@ -214,6 +217,7 @@ namespace Practica4.Logic
                 Console.WriteLine("Primer Producto:");
                 Console.WriteLine($"Product ID: {primerProducto.ProductID}");
                 Console.WriteLine($"Product Name: {primerProducto.ProductName}");
+                Console.WriteLine();
             }
             else
             {
@@ -227,15 +231,18 @@ namespace Practica4.Logic
         {
             CustomerOrderLogic customerOrderLogic = new CustomerOrderLogic();
 
-            List<Customers> customers = customerOrderLogic.GetCustomersWithOrder();
+            var clientesConOrdenes = customerOrderLogic.GetCustomersWithOrder();
 
-            Console.WriteLine("Clientes con al menos una orden:");
-            foreach (var customer in customers)
+            Console.WriteLine("Clientes con la cantidad de órdenes asociadas:");
+            foreach (var cliente in clientesConOrdenes)
             {
-                Console.WriteLine($"Customer ID: {customer.CustomerID}");
-                Console.WriteLine($"Customer Name: {customer.ContactName}");
+                Console.WriteLine($"Customer ID: {cliente.CustomerID}");
+                Console.WriteLine($"Nombre: {cliente.ContactName}");
+                Console.WriteLine($"Cantidad de órdenes: {cliente.OrderCount}");
                 Console.WriteLine();
             }
+
+            Console.ReadLine();
         }
     }
 }

@@ -29,13 +29,22 @@ namespace Practica4.Logic
             return result;
         }
 
-        public List<Customers> GetCustomersWithOrder()
+        public List<CustomerWithOrderCount> GetCustomersWithOrder()
         {
-            var customersWithOrder = _context.Customers
-            .Where(c => _context.Orders.Any(o => o.CustomerID == c.CustomerID))
-            .ToList();
+            var customersWithOrderCount = _context.Customers
+         .GroupJoin(
+             _context.Orders,
+             customer => customer.CustomerID,
+             order => order.CustomerID,
+             (customer, orders) => new CustomerWithOrderCount
+             {
+                 CustomerID = customer.CustomerID,
+                 ContactName = customer.ContactName,
+                 OrderCount = orders.Count()
+             })
+         .ToList();
 
-            return customersWithOrder;
+            return customersWithOrderCount;
         }
     }
 

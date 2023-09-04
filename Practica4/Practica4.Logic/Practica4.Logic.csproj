@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseLogic.cs" />
-    <Compile Include="CategoryLogic.cs" />
+    <Compile Include="ProductCategoryLogic.cs" />
     <Compile Include="Consultas.cs" />
     <Compile Include="CustomerLogic.cs" />
     <Compile Include="CustomerOrderLogic.cs" />
