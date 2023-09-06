@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Juego de Adivinanza de Números - Desafío de Habilidad</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body>
-    
+    <div class="game-container">
+        <div>
+            <h1 class="title-game">Juego de Adivinar el Número</h1>
+            <p class="paragraph-1">Adivina un número <span>entre 1 y 100:</span></p>
+        </div>
+
+        <div class="container-score">
+            <p>Puntaje actual: <span id="score">100</span></p>
+            <p>Puntaje más alto: <span id="highscore">0</span></p>
+        </div>
+
+        <div class="container-secret-number-input">
+            <div class="container-number">
+                <div class="container-secret-number">
+                    <p>¿?</p>
+                </div>
+            </div>
+            <div class="container-input-button">
+                <p id="message"></p>
+                <input type="number" id="guess" min="1" max="100">
+                <div class="container-buttons">
+                    <button class="reset-button" onclick="resetGame()">Reiniciar Juego</button>
+                    <button class="guess-button" onclick="checkGuess()">Adivinar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="./javascript/index.js"></script>
 </body>
+
 </html>
