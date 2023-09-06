@@ -58,4 +58,6 @@ function resetGame() {
     document.getElementById('score').textContent = score;
     document.getElementById('message').textContent = '';
     document.querySelector('.container-secret-number p').textContent = '¿?';
+    document.querySelector('.container-number').style.backgroundColor = '#111318';
+    gameOver = false;
 }
