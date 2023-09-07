@@ -11,6 +11,11 @@ body{
     background-color: #191d24;
 }
 
+
+#game-section{
+    display: none;
+}
+
 .game-container{
     color: white;
 }
@@ -21,20 +26,57 @@ body{
     letter-spacing: 3px;
 }
 
-.paragraph-1{
-    text-align: center;
-    letter-spacing: 2px;
-    padding: 20px;
-    width: 90%;
-    margin: 0 auto;
-    border-bottom: 1px solid white;
+.container-rulers{
+    width: 40%;
+    height: 50v;
+    background-color: #f06e6f;
+    border-radius: 10px;
+    padding: 40px;
+    margin: auto;
+    box-shadow: 5px 5px 10px #424242;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.paragraph-1 span{
-    background-color: rgb(250, 126, 143);
+.container-rulers h2{
+    font-size: 30px;
+    font-weight: 700;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+ul li{
+    margin-bottom: 20px;
+}
+
+.button-start-game{
+    cursor: pointer;
+    width: 30%;
     padding: 10px;
-    border-radius: 8px;
-    margin-left: 3px;
+    border-radius: 10px;
+    border: #63ccca solid 2px;
+    background-color: transparent;
+    outline: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    transition: 0.5s;
+}
+
+.button-start-game:hover{
+    background-color: #4ec2c0;
+    transition: 0.5s;
+}
+
+.timer-container{
+    width: 90%;
+    margin: auto;
+    border-bottom: 2px solid white;
+    font-size: 20px;
+    padding: 30px;
 }
 
 .container-score-reset{

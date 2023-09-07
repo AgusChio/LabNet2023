@@ -1,10 +1,17 @@
-let secretNumber = generateRandomNumber();
-let score = 100;
-let highscore = 0;
+let secretNumber;
+let score;
+let highscore;
 let gameOver = false;
+let timer;
+let timeLeft = 60;
 
 function generateRandomNumber() {
     return Math.floor(Math.random() * 100) + 1;
+}
+
+function updateTimerDisplay() {
+    const timerDisplay = document.getElementById('timer');
+    timerDisplay.textContent = timeLeft;
 }
 
 function disableInput() {
@@ -17,7 +24,43 @@ function enableInput() {
     document.querySelector('.guess-button').disabled = false;
 }
 
+function startTimer() {
+    updateTimerDisplay();
+    timer = setInterval(() => {
+        timeLeft--;
+
+        if (timeLeft < 0) {
+            timeLeft = 0;
+        }
+
+        updateTimerDisplay();
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+
+            if (!gameOver) {
+                gameOver = true;
+                disableInput();
+                const message = document.getElementById('message');
+                const secretNumberDisplay = document.querySelector('.container-secret-number p');
+                const secretNumberContainer = document.querySelector('.container-number');
+
+                message.textContent = `¡Tiempo agotado! El número era ${secretNumber}.`;
+                secretNumberDisplay.textContent = secretNumber;
+                secretNumberContainer.style.backgroundColor = 'red';
+            }
+        }
+    }, 1000);
+}
+
+function resetTimer() {
+    clearInterval(timer);
+    timeLeft = 60;
+    updateTimerDisplay();
+}
+
 function checkGuess() {
+    startTimer();
 
     const guessInput = document.getElementById('guess');
     const message = document.getElementById('message');
@@ -26,6 +69,10 @@ function checkGuess() {
     const secretNumberDisplay = document.querySelector('.container-secret-number p');
     const secretNumberContainer = document.querySelector('.container-number');
     const guess = parseInt(guessInput.value);
+
+    if (gameOver) {
+        return;
+    }
 
     if (isNaN(guess) || guess < 1 || guess > 100) {
         message.textContent = 'Ingresa un número válido entre 1 y 100.';
@@ -39,6 +86,7 @@ function checkGuess() {
         }
         gameOver = true;
         disableInput();
+        document.querySelector('.timer-container').style.display = 'none';
     } else {
         if (guess < secretNumber) {
             message.textContent = 'Demasiado bajo. Intenta de nuevo.';
@@ -54,13 +102,9 @@ function checkGuess() {
             secretNumberContainer.style.backgroundColor = 'red';
             gameOver = true;
             disableInput();
+            document.querySelector('.timer-container').style.display = 'none';
         }
     }
-
-    if (gameOver) {
-        return;
-    }
-
     guessInput.value = '';
 }
 
@@ -73,6 +117,7 @@ function resetGame() {
     document.querySelector('.container-secret-number p').textContent = '¿?';
     document.querySelector('.container-number').style.backgroundColor = '#111318';
     enableInput();
+    resetTimer();
 }
 
 function newGame() {
@@ -81,5 +126,19 @@ function newGame() {
     document.getElementById('message').textContent = '';
     document.querySelector('.container-secret-number p').textContent = '¿?';
     document.querySelector('.container-number').style.backgroundColor = '#111318';
+    document.querySelector('.timer-container').style.display = 'block';
     enableInput();
+    resetTimer();
+    startTimer();
+}
+
+function startGame() {
+    document.getElementById('rules-section').style.display = 'none';
+    document.getElementById('game-section').style.display = 'block';
+
+    secretNumber = generateRandomNumber();
+    score = 100;
+    highscore = 0;
+    gameOver = false;
+    newGame();
 }

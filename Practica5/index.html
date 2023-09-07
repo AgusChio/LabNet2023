@@ -12,33 +12,50 @@
     <div class="game-container">
         <div>
             <h1 class="title-game">Juego de Adivinar el Número</h1>
-            <p class="paragraph-1">Adivina un número <span>entre 1 y 100:</span></p>
         </div>
 
-        <div class="container-score-reset">
-            <div class="container-score">
-                <p>Puntaje actual: <span id="score">100</span></p>
-                <p>Puntaje más alto: <span id="highscore">0</span></p>
-            </div>
-            <div class="container-reset-button">
-                <button class="reset-button" onclick="resetGame()">Reiniciar Juego</button>
-            </div>
+        <div id="rules-section" class="container-rulers">
+            <h2>Reglas del Juego</h2>
+            <ul>
+                <li>Adivina un número entre 1 y 100.</li>
+                <li>Tienes 60 segundos para adivinar correctamente.</li>
+                <li>Por cada adivinanza incorrecta, perderás 10 puntos.</li>
+                <li>Si adivinas correctamente antes de que se acabe el tiempo, ganarás 5 puntos adicionales.</li>
+                <li>El juego termina cuando adivinas correctamente, se acaba el tiempo o llegas a 0 puntos.</li>
+            </ul>
+            <button onclick="startGame()" class="button-start-game">Comenzar Juego</button>
         </div>
-
-        <div class="container-secret-number-input">
-            <div class="container-number">
-                <div class="container-secret-number">
-                    <p>¿?</p>
+        
+        <div id="game-section">
+            <div class="timer-container">
+                <p>Tiempo restante: <span id="timer">60</span> segundos</p>
+            </div>
+    
+            <div class="container-score-reset">
+                <div class="container-score">
+                    <p>Puntaje actual: <span id="score">100</span></p>
+                    <p>Puntaje más alto: <span id="highscore">0</span></p>
+                </div>
+                <div class="container-reset-button">
+                    <button class="reset-button" onclick="resetGame()">Reiniciar Juego</button>
                 </div>
             </div>
-            <div class="container-input-button">
-                <p id="message"></p>
-                <input type="number" id="guess" min="1" max="100" placeholder="Ingresa un numero">
-                <div class="container-buttons">
-                    <button class="new-game-button" onclick="newGame()">Jugar de Nuevo</button>
-                    <button class="guess-button" onclick="checkGuess()">Adivinar</button>
+    
+            <div class="container-secret-number-input">
+                <div class="container-number">
+                    <div class="container-secret-number">
+                        <p>¿?</p>
+                    </div>
                 </div>
-
+                <div class="container-input-button">
+                    <p id="message"></p>
+                    <input type="number" id="guess" min="1" max="100" placeholder="Ingresa un numero">
+                    <div class="container-buttons">
+                        <button class="new-game-button" onclick="newGame()">Jugar de Nuevo</button>
+                        <button class="guess-button" onclick="checkGuess()">Adivinar</button>
+                    </div>
+    
+                </div>
             </div>
         </div>
     </div>
