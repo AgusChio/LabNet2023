@@ -60,8 +60,6 @@ function resetTimer() {
 }
 
 function checkGuess() {
-    startTimer();
-
     const guessInput = document.getElementById('guess');
     const message = document.getElementById('message');
     const scoreDisplay = document.getElementById('score');
@@ -117,10 +115,10 @@ function resetGame() {
     document.querySelector('.container-secret-number p').textContent = '¿?';
     document.querySelector('.container-number').style.backgroundColor = '#111318';
     enableInput();
-    resetTimer();
 }
 
 function newGame() {
+    clearInterval(timer);
     secretNumber = generateRandomNumber();
     gameOver = false;
     document.getElementById('message').textContent = '';
@@ -131,14 +129,13 @@ function newGame() {
     resetTimer();
     startTimer();
 }
-
-function startGame() {
-    document.getElementById('rules-section').style.display = 'none';
-    document.getElementById('game-section').style.display = 'block';
-
-    secretNumber = generateRandomNumber();
-    score = 100;
-    highscore = 0;
-    gameOver = false;
-    newGame();
-}
+    function startGame() {
+        document.getElementById('rules-section').style.display = 'none';
+        document.getElementById('game-section').style.display = 'block';
+    
+        secretNumber = generateRandomNumber();
+        score = 100;
+        highscore = 0;
+        gameOver = false;
+        newGame();
+    }
