@@ -15,9 +15,14 @@
             <p class="paragraph-1">Adivina un número <span>entre 1 y 100:</span></p>
         </div>
 
-        <div class="container-score">
-            <p>Puntaje actual: <span id="score">100</span></p>
-            <p>Puntaje más alto: <span id="highscore">0</span></p>
+        <div class="container-score-reset">
+            <div class="container-score">
+                <p>Puntaje actual: <span id="score">100</span></p>
+                <p>Puntaje más alto: <span id="highscore">0</span></p>
+            </div>
+            <div class="container-reset-button">
+                <button class="reset-button" onclick="resetGame()">Reiniciar Juego</button>
+            </div>
         </div>
 
         <div class="container-secret-number-input">
@@ -28,9 +33,9 @@
             </div>
             <div class="container-input-button">
                 <p id="message"></p>
-                <input type="number" id="guess" min="1" max="100">
+                <input type="number" id="guess" min="1" max="100" placeholder="Ingresa un numero">
                 <div class="container-buttons">
-                    <button class="reset-button" onclick="resetGame()">Reiniciar Juego</button>
+                    <button class="new-game-button" onclick="newGame()">Jugar de Nuevo</button>
                     <button class="guess-button" onclick="checkGuess()">Adivinar</button>
                 </div>
 

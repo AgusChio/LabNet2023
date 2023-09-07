@@ -37,14 +37,29 @@ body{
     margin-left: 3px;
 }
 
-.container-score{
+.container-score-reset{
     width: 100%;
     font-size: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     margin-top: 30px;
     gap: 40px;
+}
+
+.container-reset-button{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-score{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
 }
 
 
@@ -71,7 +86,7 @@ body{
 }
 
 .container-input-button input{
-    width: 70%;
+    width: 64%;
     padding: 10px;
     border-radius: 10px;
     border: none;
@@ -87,7 +102,7 @@ body{
     gap: 20px;
 }
 
-.guess-button, .reset-button{
+.guess-button, .reset-button, .new-game-button{
     cursor: pointer;
     width: 30%;
     padding: 10px;
