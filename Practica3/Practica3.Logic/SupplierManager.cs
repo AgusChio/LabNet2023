@@ -1,6 +1,8 @@
 ﻿using Practica.Entities;
+using Practica3.Entities.DTO;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Practica3.Logic
 {
@@ -51,7 +53,7 @@ namespace Practica3.Logic
 
         public void ShowAllSuppliers()
         {
-            List<Suppliers> suppliers = _supplierLogic.GetAll();
+            List<SuppliersDTO> suppliers = _supplierLogic.GetAll();
 
             foreach (var supplier in suppliers)
             {
@@ -70,28 +72,64 @@ namespace Practica3.Logic
 
         public void AddSupplier()
         {
-            Suppliers newSupplier = new Suppliers();
+            SuppliersDTO newSupplierDTO = new SuppliersDTO();
 
             Console.Write("Ingrese el nombre de la empresa: ");
-            newSupplier.CompanyName = Console.ReadLine();
+            newSupplierDTO.CompanyName = Console.ReadLine();
             Console.Write("Ingrese el nombre de contacto: ");
-            newSupplier.ContactName = Console.ReadLine();
+            newSupplierDTO.ContactName = Console.ReadLine();
             Console.Write("Ingrese el título de contacto: ");
-            newSupplier.ContactTitle = Console.ReadLine();
+            newSupplierDTO.ContactTitle = Console.ReadLine();
             Console.Write("Ingrese la dirección: ");
-            newSupplier.Address = Console.ReadLine();
+            newSupplierDTO.Address = Console.ReadLine();
             Console.Write("Ingrese la ciudad: ");
-            newSupplier.City = Console.ReadLine();
+            newSupplierDTO.City = Console.ReadLine();
+            Console.Write("Ingrese la región: ");
+            newSupplierDTO.Region = Console.ReadLine();
             Console.Write("Ingrese el código postal: ");
-            newSupplier.PostalCode = Console.ReadLine();
+            newSupplierDTO.PostalCode = Console.ReadLine();
             Console.Write("Ingrese el país: ");
-            newSupplier.Country = Console.ReadLine();
+            newSupplierDTO.Country = Console.ReadLine();
             Console.Write("Ingrese el teléfono: ");
-            newSupplier.Phone = Console.ReadLine();
+            newSupplierDTO.Phone = Console.ReadLine();
+            Console.Write("Ingrese el fax: ");
+            newSupplierDTO.Fax = Console.ReadLine();
+
+            if (newSupplierDTO == null)
+            {
+                throw new ArgumentNullException(nameof(newSupplierDTO), "El proveedor no puede ser nulo.");
+            }
+
+            if (string.IsNullOrEmpty(newSupplierDTO.CompanyName) ||
+                string.IsNullOrEmpty(newSupplierDTO.ContactName) ||
+                string.IsNullOrEmpty(newSupplierDTO.ContactTitle) ||
+                string.IsNullOrEmpty(newSupplierDTO.Address) ||
+                string.IsNullOrEmpty(newSupplierDTO.City) ||
+                string.IsNullOrEmpty(newSupplierDTO.PostalCode) ||
+                string.IsNullOrEmpty(newSupplierDTO.Country) ||
+                string.IsNullOrEmpty(newSupplierDTO.Phone))
+            {
+                throw new ArgumentException("Este campo no puede estar vacío.");
+            }
+
+            if (!Regex.IsMatch(newSupplierDTO.CompanyName, @"^[A-Za-z\s]+$"))
+            {
+                throw new ArgumentException("El nombre de la empresa no puede contener números.", nameof(newSupplierDTO.CompanyName));
+            }
+
+            if (!Regex.IsMatch(newSupplierDTO.Phone, @"^[0-9]+$"))
+            {
+                throw new ArgumentException("El número de teléfono solo puede contener dígitos numéricos.", nameof(newSupplierDTO.Phone));
+            }
+
+            if (newSupplierDTO.Phone.Length > 24)
+            {
+                throw new ArgumentException("El número de teléfono no puede tener más de 24 caracteres.", nameof(newSupplierDTO.Phone));
+            }
 
             try
             {
-                _supplierLogic.Add(newSupplier);
+                _supplierLogic.Add(newSupplierDTO);
                 Console.WriteLine("Proveedor agregado exitosamente.");
             }
             catch (Exception ex)
@@ -103,10 +141,11 @@ namespace Practica3.Logic
         public void UpdateSupplier()
         {
             ShowAllSuppliers();
+            SuppliersDTO updatedSupplierDTO = new SuppliersDTO();
             Console.Write("Ingrese el ID del proveedor a actualizar: ");
             int supplierIDToUpdate = int.Parse(Console.ReadLine());
 
-            Suppliers supplierToUpdate = _supplierLogic.GetById(supplierIDToUpdate);
+            SuppliersDTO supplierToUpdate = _supplierLogic.GetById(supplierIDToUpdate);
 
             if (supplierToUpdate != null)
             {
@@ -120,30 +159,35 @@ namespace Practica3.Logic
                 Console.WriteLine($"Código Postal: {supplierToUpdate.PostalCode}");
                 Console.WriteLine($"País: {supplierToUpdate.Country}");
                 Console.WriteLine($"Teléfono: {supplierToUpdate.Phone}");
-                Console.WriteLine();
+                Console.WriteLine($"Region: {supplierToUpdate.Region}");
+                Console.WriteLine($"Fax: {supplierToUpdate.Fax}");
 
-                Suppliers updatedSupplier = new Suppliers();
+                Console.WriteLine("Ingrese la nueva region: ");
+                updatedSupplierDTO.Region = Console.ReadLine();
+                Console.WriteLine("Ingrese el nuevo fax: ");
+                updatedSupplierDTO.Fax = Console.ReadLine();
 
-                Console.Write("Ingrese el nuevo nombre de la empresa: ");
-                updatedSupplier.CompanyName = Console.ReadLine();
-                Console.Write("Ingrese el nuevo nombre de contacto: ");
-                updatedSupplier.ContactName = Console.ReadLine();
-                Console.Write("Ingrese el nuevo título de contacto: ");
-                updatedSupplier.ContactTitle = Console.ReadLine();
-                Console.Write("Ingrese la nueva dirección: ");
-                updatedSupplier.Address = Console.ReadLine();
-                Console.Write("Ingrese la nueva ciudad: ");
-                updatedSupplier.City = Console.ReadLine();
-                Console.Write("Ingrese el nuevo código postal: ");
-                updatedSupplier.PostalCode = Console.ReadLine();
-                Console.Write("Ingrese el nuevo país: ");
-                updatedSupplier.Country = Console.ReadLine();
-                Console.Write("Ingrese el nuevo teléfono: ");
-                updatedSupplier.Phone = Console.ReadLine();
+                if (updatedSupplierDTO.Region.Length > 24 || updatedSupplierDTO.Fax.Length > 24)
+                {
+                    throw new ArgumentException("Este campo no puede tener más de 24 caracteres");
+                }
 
                 try
                 {
-                    _supplierLogic.Update(updatedSupplier);
+                    _supplierLogic.Update(new SuppliersDTO
+                    {
+                        SupplierID = supplierToUpdate.SupplierID,
+                        CompanyName = supplierToUpdate.CompanyName,
+                        ContactName = supplierToUpdate.ContactName,
+                        ContactTitle = supplierToUpdate.ContactTitle,
+                        Address = supplierToUpdate.Address,
+                        City = supplierToUpdate.City,
+                        PostalCode = supplierToUpdate.PostalCode,
+                        Country = supplierToUpdate.Country,
+                        Region = updatedSupplierDTO.Region,
+                        Phone = supplierToUpdate.Phone,
+                        Fax = updatedSupplierDTO.Fax,
+                    });
                     Console.WriteLine("Proveedor actualizado exitosamente.");
                 }
                 catch (Exception ex)
@@ -164,7 +208,7 @@ namespace Practica3.Logic
             Console.Write("Ingrese el ID del proveedor a eliminar: ");
             int supplierIDToDelete = int.Parse(Console.ReadLine());
 
-            Suppliers supplierToDelete = _supplierLogic.GetById(supplierIDToDelete);
+            SuppliersDTO supplierToDelete = _supplierLogic.GetById(supplierIDToDelete);
 
             if (supplierToDelete != null)
             {
@@ -185,7 +229,7 @@ namespace Practica3.Logic
 
                 if (confirmacion.Equals("si", StringComparison.OrdinalIgnoreCase))
                 {
-                    _supplierLogic.Delete(supplierIDToDelete);
+                    _supplierLogic.Delete(supplierToDelete.SupplierID);
                     Console.WriteLine("Proveedor eliminado exitosamente.");
                 }
                 else if (confirmacion.Equals("no", StringComparison.OrdinalIgnoreCase))

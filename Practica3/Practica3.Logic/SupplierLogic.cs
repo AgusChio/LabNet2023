@@ -3,43 +3,74 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Practica3.Entities.DTO;
 
 
 namespace Practica3.Logic
 {
-    public class SupplierLogic : BaseLogic , IRepository<Suppliers>
+    public class SupplierLogic : BaseLogic, IRepository<SuppliersDTO>
     {
-        public List<Suppliers> GetAll()
+        public List<SuppliersDTO> GetAll()
         {
-            return _context.Suppliers.ToList();
+            var suppliers = _context.Suppliers.ToList();
+            var suppliersDTO = suppliers.Select(supplier => new SuppliersDTO
+            {
+                SupplierID = supplier.SupplierID,
+                CompanyName = supplier.CompanyName,
+                ContactName = supplier.ContactName,
+                ContactTitle = supplier.ContactTitle,
+                Address = supplier.Address,
+                City = supplier.City,
+                Region = supplier.Region,
+                PostalCode = supplier.PostalCode,
+                Country = supplier.Country,
+                Phone = supplier.Phone,
+                Fax = supplier.Fax
+            }).ToList();
+
+            return suppliersDTO;
         }
 
-        public void Add(Suppliers newSupplier)
+        public void Add(SuppliersDTO newSupplierDTO)
         {
-            if (newSupplier == null)
+            if (newSupplierDTO == null)
             {
-                throw new ArgumentNullException(nameof(newSupplier), "El proveedor no puede ser nulo.");
+                throw new ArgumentNullException(nameof(newSupplierDTO), "El proveedor no puede ser nulo.");
             }
 
-            if (string.IsNullOrEmpty(newSupplier.CompanyName) || string.IsNullOrEmpty(newSupplier.ContactName) || string.IsNullOrEmpty(newSupplier.ContactTitle) || string.IsNullOrEmpty(newSupplier.Address) || string.IsNullOrEmpty(newSupplier.City) || string.IsNullOrEmpty(newSupplier.PostalCode) || string.IsNullOrEmpty(newSupplier.Country) || string.IsNullOrEmpty(newSupplier.Phone))
+            if (string.IsNullOrEmpty(newSupplierDTO.CompanyName) || string.IsNullOrEmpty(newSupplierDTO.ContactName) || string.IsNullOrEmpty(newSupplierDTO.ContactTitle) || string.IsNullOrEmpty(newSupplierDTO.Address) || string.IsNullOrEmpty(newSupplierDTO.City) || string.IsNullOrEmpty(newSupplierDTO.PostalCode) || string.IsNullOrEmpty(newSupplierDTO.Country) || string.IsNullOrEmpty(newSupplierDTO.Phone))
             {
-                throw new ArgumentException("Este campo no puede esatr vacio.", nameof(newSupplier.CompanyName));
+                throw new ArgumentException("Este campo no puede esatr vacio.", nameof(newSupplierDTO.CompanyName));
             }
 
-            if (!Regex.IsMatch(newSupplier.CompanyName, @"^[A-Za-z\s]+$"))
+            if (!Regex.IsMatch(newSupplierDTO.CompanyName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("El nombre de la empresa no puede contener números.", nameof(newSupplier.CompanyName));
+                throw new ArgumentException("El nombre de la empresa no puede contener números.", nameof(newSupplierDTO.CompanyName));
             }
 
-            if (!Regex.IsMatch(newSupplier.Phone, @"^[0-9]+$"))
+            if (!Regex.IsMatch(newSupplierDTO.Phone, @"^[0-9]+$"))
             {
-                throw new ArgumentException("El número de teléfono solo puede contener dígitos numéricos.", nameof(newSupplier.Phone));
+                throw new ArgumentException("El número de teléfono solo puede contener dígitos numéricos.", nameof(newSupplierDTO.Phone));
             }
 
-            if (newSupplier.Phone.Length > 24)
+            if (newSupplierDTO.Phone.Length > 24)
             {
-                throw new ArgumentException("El número de teléfono no puede tener más de 24 caracteres.", nameof(newSupplier.Phone));
+                throw new ArgumentException("El número de teléfono no puede tener más de 24 caracteres.", nameof(newSupplierDTO.Phone));
             }
+
+            var newSupplier = new Suppliers
+            {
+                CompanyName = newSupplierDTO.CompanyName,
+                ContactName = newSupplierDTO.ContactName,
+                ContactTitle = newSupplierDTO.ContactTitle,
+                Address = newSupplierDTO.Address,
+                City = newSupplierDTO.City,
+                Region = newSupplierDTO.Region,
+                PostalCode = newSupplierDTO.PostalCode,
+                Country = newSupplierDTO.Country,
+                Phone = newSupplierDTO.Phone,
+                Fax = newSupplierDTO.Fax
+            };
 
             _context.Suppliers.Add(newSupplier);
             _context.SaveChanges();
@@ -59,50 +90,39 @@ namespace Practica3.Logic
         }
 
 
-        public void Update(Suppliers supplier)
+        public void Update(SuppliersDTO updatedSupplierDTO)
         {
 
-            if (supplier == null)
-            {
-                throw new ArgumentNullException(nameof(supplier), "El proveedor no puede ser nulo.");
-            }
+            var supplierAActualizar = _context.Suppliers.Find(updatedSupplierDTO.SupplierID);
 
-            var supplierAActualizar = _context.Suppliers.Find(supplier.SupplierID);
 
-            if (supplierAActualizar == null)
-            {
-                throw new ArgumentException($"No se encontró ningún proveedor con el ID {supplier.SupplierID} para actualizar.");
-            }
+            supplierAActualizar.Region = updatedSupplierDTO?.Region;
+            supplierAActualizar.Fax = updatedSupplierDTO?.Fax;
 
-            if (!Regex.IsMatch(supplier.CompanyName, @"^[A-Za-z\s]+$"))
-            {
-                throw new ArgumentException("El nombre de la empresa no puede contener números.", nameof(supplier.CompanyName));
-            }
-
-            if (supplier == null)
-            {
-                throw new ArgumentNullException(nameof(supplier), "El proveedor no puede ser nulo.");
-            }
-
-            if (supplierAActualizar == null)
-            {
-                throw new ArgumentException($"No se encontró ningún proveedor con el ID {supplier.SupplierID} para actualizar.");
-            }
-
-            if (supplier.Region.Length > 24  || supplier.Fax.Length > 24)
-            {
-                throw new ArgumentException("Este campo no puede tener mas de 24 caracteres");
-            }
-
-            supplierAActualizar.Region = supplier.Region;
-            supplierAActualizar.Fax = supplier.Fax;
 
             _context.SaveChanges();
         }
 
-        public Suppliers GetById(int id)
+        public SuppliersDTO GetById(int id)
         {
-            return _context.Suppliers.Find(id);
+            var supplier = _context.Suppliers.Find(id) ?? throw new ArgumentException($"No se encontró ningún proveedor con el ID {id}.");
+
+            var supplierDTO = new SuppliersDTO
+            {
+                SupplierID = supplier.SupplierID,
+                CompanyName = supplier.CompanyName,
+                ContactName = supplier.ContactName,
+                ContactTitle = supplier.ContactTitle,
+                Address = supplier.Address,
+                City = supplier.City,
+                Region = supplier.Region,
+                PostalCode = supplier.PostalCode,
+                Country = supplier.Country,
+                Phone = supplier.Phone,
+                Fax = supplier.Fax
+            };
+
+            return supplierDTO;
         }
     }
 }

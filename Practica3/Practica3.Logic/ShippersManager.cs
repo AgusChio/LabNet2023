@@ -1,4 +1,5 @@
 ﻿using Practica.Entities;
+using Practica3.Entities.DTO;
 using System;
 using System.Collections.Generic;
 
@@ -57,24 +58,27 @@ namespace Practica3.Logic
 
         public void ShowAllShippers()
         {
-            List<Shippers> shippers = _shippersLogic.GetAll();
-            foreach (var shipper in shippers)
+            List<ShippersDTO> shippersDTO = _shippersLogic.GetAll();
+            foreach (var shipper in shippersDTO)
             {
-                Console.WriteLine($"{shipper.ShipperID}: {shipper.CompanyName}");
+                Console.WriteLine($"ID: {shipper.ShipperID}");
+                Console.WriteLine($"Nombre de la empresa: {shipper.CompanyName}");
+                Console.WriteLine();
             }
         }
 
         public void AddShipper()
         {
-            Shippers newShipper = new Shippers();
+            ShippersDTO newShipperDTO = new ShippersDTO();
+
             Console.Write("Ingrese el nombre de la empresa: ");
-            newShipper.CompanyName = Console.ReadLine();
+            newShipperDTO.CompanyName = Console.ReadLine();
             Console.Write("Ingrese el número de teléfono: ");
-            newShipper.Phone = Console.ReadLine();
+            newShipperDTO.Phone = Console.ReadLine();
 
             try
             {
-                _shippersLogic.Add(newShipper);
+                _shippersLogic.Add(newShipperDTO);
                 Console.WriteLine("Transportista agregado exitosamente.");
             }
             catch (Exception ex)
@@ -82,13 +86,11 @@ namespace Practica3.Logic
                 Console.WriteLine($"Error al agregar el transportista: {ex.Message}");
             }
         }
+
+
         public void UpdateShipper()
         {
-            List<Shippers> shippers = _shippersLogic.GetAll();
-            foreach (var shipper in shippers)
-            {
-                Console.WriteLine($"{shipper.ShipperID}: {shipper.CompanyName}");
-            }
+            ShowAllShippers();
 
             Console.Write("Ingrese el ID del transportista a actualizar: ");
             if (!int.TryParse(Console.ReadLine(), out int shipperIDToUpdate))
@@ -97,19 +99,13 @@ namespace Practica3.Logic
                 return;
             }
 
-            var shipperToUpdate = shippers.Find(s => s.ShipperID == shipperIDToUpdate);
+            ShippersDTO updatedShipperDTO = new ShippersDTO();
+            updatedShipperDTO.ShipperID = shipperIDToUpdate;
 
-            if (shipperToUpdate == null)
-            {
-                Console.WriteLine($"No se encontró ningún transportista con el ID {shipperIDToUpdate}.");
-                return;
-            }
-
-            Console.WriteLine($"Transportista encontrado: {shipperToUpdate.CompanyName}");
             Console.Write("Ingrese el nuevo nombre de la empresa: ");
-            shipperToUpdate.CompanyName = Console.ReadLine();
+            updatedShipperDTO.CompanyName = Console.ReadLine();
             Console.Write("Ingrese el nuevo número de teléfono: ");
-            shipperToUpdate.Phone = Console.ReadLine();
+            updatedShipperDTO.Phone = Console.ReadLine();
 
             Console.Write("¿Está seguro de actualizar este transportista? (si/no): ");
             string confirmacionActualizar = Console.ReadLine();
@@ -118,7 +114,7 @@ namespace Practica3.Logic
             {
                 try
                 {
-                    _shippersLogic.Update(shipperToUpdate);
+                    _shippersLogic.Update(updatedShipperDTO);
                     Console.WriteLine("Transportista actualizado exitosamente.");
                     ShowAllShippers();
                 }

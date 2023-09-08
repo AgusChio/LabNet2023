@@ -9,6 +9,5 @@ namespace Practica3.Logic
         void Add(T entity);
         void Delete(int id);
         void Update(T entity);
-        T GetById(int id);
     }
 }
