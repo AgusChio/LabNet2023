@@ -38,7 +38,16 @@ namespace Practica3.Logic
                 throw new ArgumentNullException(nameof(newSupplierDTO), "El proveedor no puede ser nulo.");
             }
 
-            if (string.IsNullOrEmpty(newSupplierDTO.CompanyName) || string.IsNullOrEmpty(newSupplierDTO.ContactName) || string.IsNullOrEmpty(newSupplierDTO.ContactTitle) || string.IsNullOrEmpty(newSupplierDTO.Address) || string.IsNullOrEmpty(newSupplierDTO.City) || string.IsNullOrEmpty(newSupplierDTO.PostalCode) || string.IsNullOrEmpty(newSupplierDTO.Country) || string.IsNullOrEmpty(newSupplierDTO.Phone))
+            if (string.IsNullOrEmpty(newSupplierDTO.CompanyName) || 
+                string.IsNullOrEmpty(newSupplierDTO.ContactName) || 
+                string.IsNullOrEmpty(newSupplierDTO.ContactTitle) ||
+                string.IsNullOrEmpty(newSupplierDTO.Address) ||
+                string.IsNullOrEmpty(newSupplierDTO.Region) ||
+                string.IsNullOrEmpty(newSupplierDTO.City) || 
+                string.IsNullOrEmpty(newSupplierDTO.PostalCode) || 
+                string.IsNullOrEmpty(newSupplierDTO.Country) ||
+                string.IsNullOrEmpty(newSupplierDTO.Phone) ||
+                string.IsNullOrEmpty(newSupplierDTO.Fax))
             {
                 throw new ArgumentException("Este campo no puede esatr vacio.", nameof(newSupplierDTO.CompanyName));
             }
@@ -53,10 +62,23 @@ namespace Practica3.Logic
                 throw new ArgumentException("El número de teléfono solo puede contener dígitos numéricos.", nameof(newSupplierDTO.Phone));
             }
 
+
+            if (!Regex.IsMatch(newSupplierDTO.PostalCode, @"^[0-9]+$"))
+            {
+                throw new ArgumentException("El número postal solo puede contener dígitos numéricos.", nameof(newSupplierDTO.PostalCode));
+            }
+
             if (newSupplierDTO.Phone.Length > 24)
             {
                 throw new ArgumentException("El número de teléfono no puede tener más de 24 caracteres.", nameof(newSupplierDTO.Phone));
             }
+
+            if (!Regex.IsMatch(newSupplierDTO.Fax, @"^[0-9]+$"))
+            {
+                throw new ArgumentException("El Fax solo puede contener dígitos numéricos.", nameof(newSupplierDTO.Fax));
+            }
+
+
 
             var newSupplier = new Suppliers
             {
