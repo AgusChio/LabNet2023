@@ -117,10 +117,51 @@ namespace Practica3.Logic
 
             var supplierAActualizar = _context.Suppliers.Find(updatedSupplierDTO.SupplierID);
 
+            if (supplierAActualizar == null)
+            {
+                throw new ArgumentException($"No se encontró ningún proveedor con el ID {updatedSupplierDTO.SupplierID} para actualizar.");
+            }
 
+            if (!Regex.IsMatch(updatedSupplierDTO.CompanyName, @"^[A-Za-z\s]+$"))
+            {
+                throw new ArgumentException("El nombre de la empresa no puede contener números.", nameof(updatedSupplierDTO.CompanyName));
+            }
+
+            if (!Regex.IsMatch(updatedSupplierDTO.Phone, @"^[0-9]+$"))
+            {
+                throw new ArgumentException("El número de teléfono solo puede contener dígitos numéricos.", nameof(updatedSupplierDTO.Phone));
+            }
+
+            if (updatedSupplierDTO.Phone.Length > 24)
+            {
+                throw new ArgumentException("El número de teléfono no puede tener más de 24 caracteres.", nameof(updatedSupplierDTO.Phone));
+            }
+
+            if (!Regex.IsMatch(updatedSupplierDTO.Fax, @"^[0-9]+$"))
+            {
+                throw new ArgumentException("El Fax solo puede contener dígitos numéricos.", nameof(updatedSupplierDTO.Fax));
+            }
+
+            if(!Regex.IsMatch(updatedSupplierDTO.PostalCode, @"^[0-9]+$"))
+            {
+                throw new ArgumentException("El número postal solo puede contener dígitos numéricos.", nameof(updatedSupplierDTO.PostalCode));
+            }
+
+            if(updatedSupplierDTO.Country == null)
+            {
+                throw new ArgumentException("no llego nada loco");
+            }
+    
+            supplierAActualizar.CompanyName = updatedSupplierDTO.CompanyName;
+            supplierAActualizar.ContactName = updatedSupplierDTO.ContactName;
+            supplierAActualizar.ContactTitle = updatedSupplierDTO.ContactTitle;
+            supplierAActualizar.Address = updatedSupplierDTO.Address;
+            supplierAActualizar.City = updatedSupplierDTO.City;
             supplierAActualizar.Region = updatedSupplierDTO?.Region;
+            supplierAActualizar.PostalCode = updatedSupplierDTO.PostalCode;
+            supplierAActualizar.Country = updatedSupplierDTO?.Country;
+            supplierAActualizar.Phone = updatedSupplierDTO.Phone;
             supplierAActualizar.Fax = updatedSupplierDTO?.Fax;
-
 
             _context.SaveChanges();
         }

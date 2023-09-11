@@ -27,26 +27,70 @@
                 <th scope="col" class="p-3">Country</th>
                 <th scope="col" class="p-3">Phone</th>
                 <th scope="col" class="p-3">Fax</th>
-                <th scope="col" class="p-3">Opciones</th>
+                <th scope="col" class="p-3">Delete</th>
+                <th scope="col" class="p-3">Edit</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var supplier in Model)
             {
                 <tr>
-                    <td class="p-3">@supplier.CompanyName</td>
-                    <td class="p-3">@supplier.ContactName</td>
-                    <td class="p-3">@supplier.ContactTitle</td>
-                    <td class="p-3">@supplier.Address</td>
-                    <td class="p-3">@supplier.City</td>
-                    <td class="p-3">@supplier.Region</td>
-                    <td class="p-3">@supplier.PostalCode</td>
-                    <td class="p-3">@supplier.Country</td>
-                    <td class="p-3">@supplier.Phone</td>
-                    <td class="p-3">@supplier.Fax</td>
-                    <td>
+                    <td class="p-3">
+                        <span id="companyName_@supplier.SupplierID">@supplier.CompanyName</span>
+                        <input type="text" id="editCompanyName_@supplier.SupplierID" value="@supplier.CompanyName" class="form-control" style="display: none;" />
+                    </td>
+                    <td class="p-3">
+                        <span id="contactName_@supplier.SupplierID">@supplier.ContactName</span>
+                        <input type="text" id="editContactName_@supplier.SupplierID" value="@supplier.ContactName" class="form-control" style="display: none;" />
+                    </td>
+
+                    <td class="p-3">
+                        <span id="contactTitle_@supplier.SupplierID">@supplier.ContactTitle</span>
+                        <input type="text" id="editContactTitle_@supplier.SupplierID" value="@supplier.ContactTitle" class="form-control" style="display: none;" />
+                    </td>
+
+                    <td class="p-3">
+                        <span id="address_@supplier.SupplierID">@supplier.Address</span>
+                        <input type="text" id="editAddress_@supplier.SupplierID" value="@supplier.Address" class="form-control" style="display: none;" />
+                    </td>
+
+                    <td class="p-3">
+                        <span id="city_@supplier.SupplierID">@supplier.City</span>
+                        <input type="text" id="editCity_@supplier.SupplierID" value="@supplier.City" class="form-control" style="display: none;" />
+                    </td>
+                    <td class="p-3">
+                        <span id="region_@supplier.SupplierID">@supplier.Region</span>
+                        <input type="text" id="editRegion_@supplier.SupplierID" value="@supplier.Region" class="form-control" style="display: none;" />
+                    </td>
+                    <td class="p-3">
+                        <span id="postalCode_@supplier.SupplierID">@supplier.PostalCode</span>
+                        <input type="text" id="editPostalCode_@supplier.SupplierID" value="@supplier.PostalCode" class="form-control" style="display: none;" />
+                    </td>
+
+                    <td class="p-3">
+                        <span id="country_@supplier.SupplierID">@supplier.Country</span>
+                        <input type="text" id="editCountry_@supplier.SupplierID" value="@supplier.Country" class="form-control" style="display: none;" />
+                    </td>
+
+                    <td class="p-3">
+                        <span id="phone_@supplier.SupplierID">@supplier.Phone</span>
+                        <input type="text" id="editPhone_@supplier.SupplierID" value="@supplier.Phone" class="form-control" style="display: none;" />
+                    </td>
+                    <td class="p-3">
+                        <span id="fax_@supplier.SupplierID">@supplier.Fax</span>
+                        <input type="text" id="editFax_@supplier.SupplierID" value="@supplier.Fax" class="form-control" style="display: none;" />
+                    </td>
+                    <td class="p-3">
                         <button type="button" class="btn btn-outline-danger" onclick="deleteSupplier(@supplier.SupplierID)">
                             <i class="bi bi-trash3"></i>
+                        </button>
+                    </td>
+                    <td class="p-3">
+                        <button id="editButton_@supplier.SupplierID" type="button" class="btn btn-outline-secondary" onclick="editSupplier(@supplier.SupplierID)">
+                            <i class="bi bi-pen"></i>
+                        </button>
+                        <button class="btn btn-success" style="display: none;" data-id="@supplier.SupplierID" onclick="saveSupplier(@supplier.SupplierID)">
+                            <i class="bi bi-check-lg"></i>
                         </button>
                     </td>
                 </tr>
@@ -85,10 +129,10 @@
 
         function confirmDelete(idSupplier) {
             $.ajax({
-                url: '@Url.Action("DeleteSuppliers", "Suppliers")',
+                url: '@Url.Action("DeleteSupplier", "Suppliers")',
                 method: 'POST',
                 data: {
-                    idSuppliers: idSupplier,
+                    idSupplier: idSupplier,
                 },
                 dataType: "json",
                 success: function (data) {
@@ -113,5 +157,98 @@
                 }
             });
         }
+
+        function editSupplier(idSupplier) {
+            $(`#region_${idSupplier}`).hide();
+            $(`#editRegion_${idSupplier}`).show();
+            $(`#fax_${idSupplier}`).hide();
+            $(`#editFax_${idSupplier}`).show();
+            $(`#contactName_${idSupplier}`).hide();
+            $(`#editContactName_${idSupplier}`).show();
+            $(`#contactTitle_${idSupplier}`).hide();
+            $(`#editContactTitle_${idSupplier}`).show();
+            $(`#address_${idSupplier}`).hide();
+            $(`#editAddress_${idSupplier}`).show();
+            $(`#city_${idSupplier}`).hide();
+            $(`#editCity_${idSupplier}`).show();
+            $(`#postalCode_${idSupplier}`).hide();
+            $(`#editPostalCode_${idSupplier}`).show();
+            $(`#country_${idSupplier}`).hide();
+            $(`#editCountry_${idSupplier}`).show();
+            $(`#phone_${idSupplier}`).hide();
+            $(`#editPhone_${idSupplier}`).show();
+            $(`#companyName_${idSupplier}`).hide();
+            $(`#editCompanyName_${idSupplier}`).show();
+
+            $(`#editButton_${idSupplier}`).css('display', 'none');
+
+            $(`button[data-id="${idSupplier}"].btn-success`).show();
+
+            console.log(idSupplier);
+        }
+
+        function saveSupplier(idSupplier) {
+            var newRegion = $(`#editRegion_${idSupplier}`).val();
+            var newFax = $(`#editFax_${idSupplier}`).val();
+            var newContactName = $(`#editContactName_${idSupplier}`).val();
+            var newContactTitle = $(`#editContactTitle_${idSupplier}`).val();
+            var newAddress = $(`#editAddress_${idSupplier}`).val();
+            var newCity = $(`#editCity_${idSupplier}`).val();
+            var newPostalCode = $(`#editPostalCode_${idSupplier}`).val();
+            var newCountry = $(`#editCountry_${idSupplier}`).val();
+            var newPhone = $(`#editPhone_${idSupplier}`).val();
+            var newCompanyName = $(`#editCompanyName_${idSupplier}`).val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Suppliers/Edit",
+                data: {
+                    SupplierID: idSupplier,
+                    CompanyName: newRegion,
+                    ContactName: newContactName,
+                    ContactTitle: newContactTitle,
+                    Address: newAddress,
+                    City: newCity,
+                    Region: newRegion,
+                    PostalCode: newPostalCode,
+                    Country: newCountry,
+                    Phone: newPhone,
+                    CompanyName: newCompanyName,
+                    Fax: newFax,
+                },
+                success: function (data) {
+                    if (data.result) {
+
+                        Swal.fire(
+                            'Success!',
+                            'Supplier updated successfully',
+                            'success'
+                        )
+                            .then(() => {
+                                window.location.reload();
+                            });
+                        
+                    } else {
+                        console.log(data);
+                        Swal.fire(
+                            'Error!',
+                            'Failed to update supplier. Error: ' + data.error,
+                            'error'
+                        );
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error(xhr);
+                    Swal.fire(
+                        'Error!',
+                        'An error occurred while updating the supplier: ' + errorThrown,
+                        'error'
+                    );
+                }
+            });
+
+
+        }
+
     </script>
 }

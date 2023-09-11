@@ -4,6 +4,7 @@ using Practica3.Logic;
 using Practica6.MVC.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,10 +13,11 @@ namespace Practica6.MVC.Controllers
 {
     public class SuppliersController : Controller
     {
+
+        SupplierLogic logic = new SupplierLogic();
         // GET: Suppliers
         public ActionResult Index()
         {
-            var logic = new SupplierLogic();
             List<SuppliersDTO> suppliers = logic.GetAll();
 
             List<SupplierView> supplierViews = suppliers.Select(s => new SupplierView
@@ -47,7 +49,6 @@ namespace Practica6.MVC.Controllers
         {
             try
             {
-                var logic = new SupplierLogic();
                 logic.Add(new SuppliersDTO
                 {
                     CompanyName = newSupplier.CompanyName,
@@ -62,21 +63,50 @@ namespace Practica6.MVC.Controllers
                     Fax = newSupplier.Fax
                 });
 
-                return RedirectToAction("Index");
+
+                return Json(new { result = true });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return RedirectToAction("Index", "Error");
+                return Json(new { result = false, error = ex.Message });
             }
+        }
+
+        [HttpPost]
+        public JsonResult Edit(SupplierView updateSupplierView)
+        {
+            try
+            {
+                var supplierView = new SuppliersDTO
+                {
+                    SupplierID = updateSupplierView.SupplierID,
+                    CompanyName = updateSupplierView.CompanyName,
+                    ContactName = updateSupplierView.ContactName,
+                    ContactTitle = updateSupplierView.ContactTitle,
+                    Address = updateSupplierView.Address,
+                    City = updateSupplierView.City,
+                    Region = updateSupplierView.Region,
+                    PostalCode = updateSupplierView.PostalCode,
+                    Country = updateSupplierView.Country,
+                    Phone = updateSupplierView.Phone,
+                    Fax = updateSupplierView.Fax
+                };
+                logic.Update(supplierView);
+
+                return Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = false, error = ex.Message });
+            }   
         }
 
 
 
-        public ActionResult DeleteSupplier(int idSupplier)
+        public JsonResult DeleteSupplier(int idSupplier)
         {
             try
             {
-                var logic = new SupplierLogic();
                 logic.Delete(idSupplier);
 
                 return Json(new { result = true });

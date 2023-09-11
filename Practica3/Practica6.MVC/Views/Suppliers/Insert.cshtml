@@ -5,7 +5,7 @@
 }
 
 <h1 class="mb-4">Vista para Insertar</h1>
-<div>
+<div class="row">
     <div class="col-md-6">
         @using (Html.BeginForm("Insert", "Suppliers", FormMethod.Post, new { id = "supplierForm" }))
         {
@@ -75,7 +75,7 @@
 
 
                 var companyName = $("#CompanyName").val();
-                var contactName = $("#ContactName").val(); 
+                var contactName = $("#ContactName").val();
                 var contactTitle = $("#ContactTitle").val();
                 var address = $("#Address").val();
                 var city = $("#City").val();
@@ -109,7 +109,7 @@
                 if (city === "") {
                     mostrarError("La ciudad es obligatoria.");
                     return;
-                }   
+                }
 
                 if (region === "") {
                     mostrarError("La región es obligatoria.");
@@ -139,7 +139,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "@Url.Action("Add", "Suppliers")",
+                    url: "@Url.Action("Insert", "Suppliers")",
                     data: $("#supplierForm").serialize(),
                     success: function (response) {
                         if (response.result) {
