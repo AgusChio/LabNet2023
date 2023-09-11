@@ -35,7 +35,7 @@ namespace Practica3.Logic
         {
             if (newSupplierDTO == null)
             {
-                throw new ArgumentNullException(nameof(newSupplierDTO), "El proveedor no puede ser nulo.");
+                throw new ArgumentNullException(nameof(newSupplierDTO), "The supplier cannot be null and void.");
             }
 
             if (string.IsNullOrEmpty(newSupplierDTO.CompanyName) || 
@@ -49,33 +49,58 @@ namespace Practica3.Logic
                 string.IsNullOrEmpty(newSupplierDTO.Phone) ||
                 string.IsNullOrEmpty(newSupplierDTO.Fax))
             {
-                throw new ArgumentException("Este campo no puede esatr vacio.", nameof(newSupplierDTO.CompanyName));
+                throw new ArgumentException("This field cannot be empty.", nameof(newSupplierDTO.CompanyName));
             }
 
             if (!Regex.IsMatch(newSupplierDTO.CompanyName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("El nombre de la empresa no puede contener números.", nameof(newSupplierDTO.CompanyName));
+                throw new ArgumentException("The company name cannot contain numbers.", nameof(newSupplierDTO.CompanyName));
             }
 
-            if (!Regex.IsMatch(newSupplierDTO.Phone, @"^[0-9]+$"))
+            if (!Regex.IsMatch(newSupplierDTO.ContactName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("El número de teléfono solo puede contener dígitos numéricos.", nameof(newSupplierDTO.Phone));
+                throw new ArgumentException("Contact name can only contain letters.", nameof(newSupplierDTO.ContactName));
+            }
+
+            if (!Regex.IsMatch(newSupplierDTO.ContactTitle, @"^[A-Za-z\s]+$"))
+            {
+                throw new ArgumentException("Contact title can only contain letters.", nameof(newSupplierDTO.ContactTitle));
+            }
+
+            if (!Regex.IsMatch(newSupplierDTO.Region, @"^[A-Za-z\s]+$"))
+            {
+                throw new ArgumentException("Region can only contain letters.", nameof(newSupplierDTO.Region));
+            }
+
+            if (!Regex.IsMatch(newSupplierDTO.City, @"^[A-Za-z\s]+$"))
+            {
+                throw new ArgumentException("City can only contain letters.", nameof(newSupplierDTO.City));
+            }
+
+            if (!Regex.IsMatch(newSupplierDTO.Country, @"^[A-Za-z\s]+$"))
+            {
+                throw new ArgumentException("Country can only contain letters.", nameof(newSupplierDTO.Country));
+            }
+
+            if (!Regex.IsMatch(newSupplierDTO.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
+            {
+                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).", nameof(newSupplierDTO.Phone));
             }
 
 
             if (!Regex.IsMatch(newSupplierDTO.PostalCode, @"^[0-9]+$"))
             {
-                throw new ArgumentException("El número postal solo puede contener dígitos numéricos.", nameof(newSupplierDTO.PostalCode));
+                throw new ArgumentException("The postal number can only contain numeric digits.", nameof(newSupplierDTO.PostalCode));
             }
 
             if (newSupplierDTO.Phone.Length > 24)
             {
-                throw new ArgumentException("El número de teléfono no puede tener más de 24 caracteres.", nameof(newSupplierDTO.Phone));
+                throw new ArgumentException("The telephone number cannot be longer than 24 characters.", nameof(newSupplierDTO.Phone));
             }
 
             if (!Regex.IsMatch(newSupplierDTO.Fax, @"^[0-9]+$"))
             {
-                throw new ArgumentException("El Fax solo puede contener dígitos numéricos.", nameof(newSupplierDTO.Fax));
+                throw new ArgumentException("The Fax can only contain numeric digits.", nameof(newSupplierDTO.Fax));
             }
 
 
@@ -104,7 +129,7 @@ namespace Practica3.Logic
 
             if (supplierAEliminar == null)
             {
-                throw new ArgumentException($"No se encontró ningún proveedor con el ID {id} para eliminar.");
+                throw new ArgumentException($"No supplier with the ID {id} was found to remove.");
             }
 
             _context.Suppliers.Remove(supplierAEliminar);
@@ -119,39 +144,64 @@ namespace Practica3.Logic
 
             if (supplierAActualizar == null)
             {
-                throw new ArgumentException($"No se encontró ningún proveedor con el ID {updatedSupplierDTO.SupplierID} para actualizar.");
+                throw new ArgumentException($"No supplier with the ID {updatedSupplierDTO.SupplierID} was found to update.");
             }
 
             if (!Regex.IsMatch(updatedSupplierDTO.CompanyName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("El nombre de la empresa no puede contener números.", nameof(updatedSupplierDTO.CompanyName));
+                throw new ArgumentException("The company name cannot contain numbers.", nameof(updatedSupplierDTO.CompanyName));
             }
 
-            if (!Regex.IsMatch(updatedSupplierDTO.Phone, @"^[0-9]+$"))
+            if (!Regex.IsMatch(updatedSupplierDTO.ContactName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("El número de teléfono solo puede contener dígitos numéricos.", nameof(updatedSupplierDTO.Phone));
+                throw new ArgumentException("Contact name can only contain letters.", nameof(updatedSupplierDTO.ContactName));
+            }
+
+            if (!Regex.IsMatch(updatedSupplierDTO.ContactTitle, @"^[A-Za-z\s]+$"))
+            {
+                throw new ArgumentException("Contact title can only contain letters.", nameof(updatedSupplierDTO.ContactTitle));
+            }
+
+            if (!Regex.IsMatch(updatedSupplierDTO.Region, @"^[A-Za-z\s]+$"))
+            {
+                throw new ArgumentException("Region can only contain letters.", nameof(updatedSupplierDTO.Region));
+            }
+
+            if (!Regex.IsMatch(updatedSupplierDTO.City, @"^[A-Za-z\s]+$"))
+            {
+                throw new ArgumentException("City can only contain letters.", nameof(updatedSupplierDTO.City));
+            }
+
+            if (!Regex.IsMatch(updatedSupplierDTO.Country, @"^[A-Za-z\s]+$"))
+            {
+                throw new ArgumentException("Country can only contain letters.", nameof(updatedSupplierDTO.Country));
+            }
+
+            if (!Regex.IsMatch(updatedSupplierDTO.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
+            {
+                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).", nameof(updatedSupplierDTO.Phone));
             }
 
             if (updatedSupplierDTO.Phone.Length > 24)
             {
-                throw new ArgumentException("El número de teléfono no puede tener más de 24 caracteres.", nameof(updatedSupplierDTO.Phone));
+                throw new ArgumentException("The phone number cannot be longer than 24 characters.", nameof(updatedSupplierDTO.Phone));
             }
 
             if (!Regex.IsMatch(updatedSupplierDTO.Fax, @"^[0-9]+$"))
             {
-                throw new ArgumentException("El Fax solo puede contener dígitos numéricos.", nameof(updatedSupplierDTO.Fax));
+                throw new ArgumentException("Fax can only contain numeric digits.", nameof(updatedSupplierDTO.Fax));
             }
 
-            if(!Regex.IsMatch(updatedSupplierDTO.PostalCode, @"^[0-9]+$"))
+            if (!Regex.IsMatch(updatedSupplierDTO.PostalCode, @"^[0-9]+$"))
             {
-                throw new ArgumentException("El número postal solo puede contener dígitos numéricos.", nameof(updatedSupplierDTO.PostalCode));
+                throw new ArgumentException("Postal number can only contain numeric digits.", nameof(updatedSupplierDTO.PostalCode));
             }
 
-            if(updatedSupplierDTO.Country == null)
+            if (updatedSupplierDTO.Country == null)
             {
-                throw new ArgumentException("no llego nada loco");
+                throw new ArgumentException("nothing crazy came in");
             }
-    
+
             supplierAActualizar.CompanyName = updatedSupplierDTO.CompanyName;
             supplierAActualizar.ContactName = updatedSupplierDTO.ContactName;
             supplierAActualizar.ContactTitle = updatedSupplierDTO.ContactTitle;
@@ -168,7 +218,7 @@ namespace Practica3.Logic
 
         public SuppliersDTO GetById(int id)
         {
-            var supplier = _context.Suppliers.Find(id) ?? throw new ArgumentException($"No se encontró ningún proveedor con el ID {id}.");
+            var supplier = _context.Suppliers.Find(id) ?? throw new ArgumentException($"No supplier with the ID {id} was found.");
 
             var supplierDTO = new SuppliersDTO
             {

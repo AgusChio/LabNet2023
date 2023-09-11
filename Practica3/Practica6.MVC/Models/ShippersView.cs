@@ -1,7 +1,6 @@
-﻿
-namespace Practica3.Entities.DTO
+﻿namespace Practica6.MVC.Models
 {
-    public class ShippersDTO
+    public class ShippersView
     {
         public int ShipperID { get; set; }
         public string CompanyName { get; set; }

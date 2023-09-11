@@ -41,7 +41,7 @@
 
             <div class="form-group mb-3">
                 @Html.LabelFor(supplier => supplier.PostalCode)
-                @Html.TextBoxFor(supplier => supplier.PostalCode, new { @class = "form-control", type = "number" })
+                @Html.TextBoxFor(supplier => supplier.PostalCode, new { @class = "form-control"})
             </div>
 
             <div class="form-group mb-3">
@@ -51,12 +51,12 @@
 
             <div class="form-group mb-3">
                 @Html.LabelFor(supplier => supplier.Phone)
-                @Html.TextBoxFor(supplier => supplier.Phone, new { @class = "form-control", type = "number" })
+                @Html.TextBoxFor(supplier => supplier.Phone, new { @class = "form-control"})
             </div>
 
             <div class="form-group mb-3">
                 @Html.LabelFor(supplier => supplier.Fax)
-                @Html.TextBoxFor(supplier => supplier.Fax, new { @class = "form-control", type = "number" })
+                @Html.TextBoxFor(supplier => supplier.Fax, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
@@ -73,104 +73,36 @@
             $("#supplierForm").submit(function (event) {
                 event.preventDefault();
 
-
-                var companyName = $("#CompanyName").val();
-                var contactName = $("#ContactName").val();
-                var contactTitle = $("#ContactTitle").val();
-                var address = $("#Address").val();
-                var city = $("#City").val();
-                var region = $("#Region").val();
-                var postalCode = $("#PostalCode").val();
-                var country = $("#Country").val();
-                var phone = $("#Phone").val();
-                var fax = $("#Fax").val();
-
-
-                if (companyName === "") {
-                    mostrarError("El nombre de la empresa es obligatorio.");
-                    return;
-                }
-
-                if (contactName === "") {
-                    mostrarError("El nombre de contacto es obligatorio.");
-                    return;
-                }
-
-                if (contactTitle === "") {
-                    mostrarError("El título de contacto es obligatorio.");
-                    return;
-                }
-
-                if (address === "") {
-                    mostrarError("La dirección es obligatoria.");
-                    return;
-                }
-
-                if (city === "") {
-                    mostrarError("La ciudad es obligatoria.");
-                    return;
-                }
-
-                if (region === "") {
-                    mostrarError("La región es obligatoria.");
-                    return;
-                }
-
-                if (postalCode === "") {
-                    mostrarError("El código postal es obligatorio.");
-                    return;
-                }
-
-                if (country === "") {
-                    mostrarError("El país es obligatorio.");
-                    return;
-                }
-
-                if (phone === "") {
-                    mostrarError("El teléfono es obligatorio.");
-                    return;
-                }
-
-                if (fax === "") {
-                    mostrarError("El fax es obligatorio.");
-                    return;
-                }
-
-
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("Insert", "Suppliers")",
                     data: $("#supplierForm").serialize(),
-                    success: function (response) {
-                        if (response.result) {
-                            mostrarExito("El proveedor se ha creado correctamente.");
+                    success: function (data) {
+                        if (data.result) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'The supplier has been successfully created.'
+                            }).then(function () {
+                                window.location.href = "@Url.Action("Index", "Suppliers")";
+                            });
                         } else {
-                            mostrarError("No se pudo crear el proveedor. Error: " + response.error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Validation error',
+                                text: 'The supplier could not be created. Error: ' + data.error
+                            });
                         }
                     },
                     error: function () {
-                        mostrarError("Hubo un error al comunicarse con el servidor.");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'There was an error communicating with the server.'
+                        });
                     }
                 });
             });
-
-            function mostrarError(mensaje) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error de validación',
-                    text: mensaje
-                });
-            }
-
-            function mostrarExito(mensaje) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Éxito',
-                    text: mensaje
-                }).then(function () {
-                    window.location.href = "@Url.Action("Index", "Suppliers")";
-                });
-            }
         });
     </script>
 }

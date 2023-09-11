@@ -23,27 +23,27 @@ namespace Practica3.Logic
         {
             if (newShipper == null)
             {
-                throw new ArgumentNullException(nameof(newShipper), "El transportista no puede ser nulo.");
+                throw new ArgumentNullException(nameof(newShipper), "The shipper cannot be void.");
             }
 
             if (string.IsNullOrEmpty(newShipper.CompanyName) || string.IsNullOrEmpty(newShipper.Phone))
             {
-                throw new ArgumentException("El campo no puede estar vacío");
+                throw new ArgumentException("It appears that there are empty fields, please review and complete the form." , nameof(newShipper.CompanyName));
             }
 
             if (!Regex.IsMatch(newShipper.CompanyName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("El nombre de la empresa no puede contener números.", nameof(newShipper.CompanyName));
+                throw new ArgumentException("The company name cannot contain numbers.", nameof(newShipper.CompanyName));
             }
 
-            if (!Regex.IsMatch(newShipper.Phone, @"^[0-9]+$"))
+            if (!Regex.IsMatch(newShipper.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
             {
-                throw new ArgumentException("El número de teléfono solo puede contener dígitos numéricos.", nameof(newShipper.Phone));
+                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).", nameof(newShipper.Phone));
             }
 
             if (newShipper.Phone.Length > 24)
             {
-                throw new ArgumentException("El número de teléfono no puede tener más de 24 caracteres.", nameof(newShipper.Phone));
+                throw new ArgumentException("The telephone number cannot be longer than 24 characters.", nameof(newShipper.Phone));
             }
 
             var shipper = new Shippers
@@ -62,7 +62,7 @@ namespace Practica3.Logic
 
             if (shipperAEliminar == null)
             {
-                throw new ArgumentException($"No se encontró ningún transportista con el ID {id} para eliminar.");
+                throw new ArgumentException($"No carrier with the ID {id} was found to delete.");
             }
 
             _context.Shippers.Remove(shipperAEliminar);
@@ -75,34 +75,29 @@ namespace Practica3.Logic
 
             if (shipper == null)
             {
-                throw new ArgumentNullException(nameof(shipper), "El transportista no puede ser nulo.");
+                throw new ArgumentNullException(nameof(shipper), "The shipper cannot be void.");
             }
 
             var shipperAActualizar = _context.Shippers.Find(shipper.ShipperID);
 
             if (shipperAActualizar == null)
             {
-                throw new ArgumentException($"No se encontró ningún transportista con el ID {shipper.ShipperID} para actualizar.");
+                throw new ArgumentException($"No shipper with the ID {shipper.ShipperID} was found to update.");
             }
 
             if (!Regex.IsMatch(shipper.CompanyName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("El nombre de la empresa no puede contener números.", nameof(shipper.CompanyName));
+                throw new ArgumentException("The company name cannot contain numbers.", nameof(shipper.CompanyName));
             }
 
-            if (shipper == null)
+            if (!Regex.IsMatch(shipper.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
             {
-                throw new ArgumentNullException(nameof(shipper), "El transportista no puede ser nulo.");
-            }
-
-            if (shipperAActualizar == null)
-            {
-                throw new ArgumentException($"No se encontró ningún transportista con el ID {shipper.ShipperID} para actualizar.");
+                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).", nameof(shipper.Phone));
             }
 
             if (string.IsNullOrEmpty(shipper.CompanyName) || string.IsNullOrEmpty(shipper.Phone))
             {
-                throw new ArgumentException("Este campo no puede estar vacio", nameof(shipper.CompanyName));
+                throw new ArgumentException("It appears that there are empty fields, please review and complete the form." , nameof(shipper.CompanyName));
             }
 
 
@@ -118,3 +113,4 @@ namespace Practica3.Logic
         }
     }
 }
+

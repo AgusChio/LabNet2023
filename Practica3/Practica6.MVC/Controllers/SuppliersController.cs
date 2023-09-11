@@ -1,12 +1,9 @@
-﻿using Practica.Entities;
-using Practica3.Entities.DTO;
+﻿using Practica3.Entities.DTO;
 using Practica3.Logic;
 using Practica6.MVC.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Practica6.MVC.Controllers
@@ -15,7 +12,7 @@ namespace Practica6.MVC.Controllers
     {
 
         SupplierLogic logic = new SupplierLogic();
-        // GET: Suppliers
+
         public ActionResult Index()
         {
             List<SuppliersDTO> suppliers = logic.GetAll();

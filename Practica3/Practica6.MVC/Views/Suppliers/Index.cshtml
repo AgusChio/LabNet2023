@@ -1,9 +1,7 @@
 ﻿@model List<Practica6.MVC.Models.SupplierView>
 
 
-@{
-    ViewBag.Title = "Suppliers Page";
-}
+
 
 <h1>Suppliers</h1>
 
@@ -106,21 +104,20 @@
         function deleteSupplier(idSupplier) {
 
             Swal.fire({
-                title: '¿Está seguro?',
-                text: "No podrás revertir esta operación!",
+                title: 'Are you sure?',
+                text: "You won't be able to revert this operation!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Si, Eliminar!',
+                cancelButtonText: 'Cancel',
+                confirmButtonText: 'Yes, Delete!',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    console.log("mandó a eliminar");
                     confirmDelete(idSupplier);
                     Swal.fire(
                         'Deleted!',
-                        'the suppliers has been deleted.',
+                        'The suppliers has been deleted.',
                         'success'
                     )
                 }
@@ -138,8 +135,8 @@
                 success: function (data) {
                     if (data.result) {
                         Swal.fire(
-                            'Bien!',
-                            'Proveedor eliminado!',
+                            'Good!',
+                            'Provider removed!',
                             'success'
                         );
 
@@ -147,7 +144,7 @@
                     } else {
                         Swal.fire(
                             'Error!',
-                            'No se pudo eliminar. Error: ' + data.error,
+                            'Could not delete. Error: ' + data.error,
                             'error'
                         );
                     }
@@ -200,11 +197,11 @@
             var newCompanyName = $(`#editCompanyName_${idSupplier}`).val();
 
             $.ajax({
-                type: "POST",
-                url: "/Suppliers/Edit",
+                url: '@Url.Action("Edit", "Suppliers")',
+                method: 'POST',
                 data: {
                     SupplierID: idSupplier,
-                    CompanyName: newRegion,
+                    CompanyName: newCompanyName,
                     ContactName: newContactName,
                     ContactTitle: newContactTitle,
                     Address: newAddress,
@@ -213,7 +210,6 @@
                     PostalCode: newPostalCode,
                     Country: newCountry,
                     Phone: newPhone,
-                    CompanyName: newCompanyName,
                     Fax: newFax,
                 },
                 success: function (data) {
@@ -227,7 +223,7 @@
                             .then(() => {
                                 window.location.reload();
                             });
-                        
+
                     } else {
                         console.log(data);
                         Swal.fire(
