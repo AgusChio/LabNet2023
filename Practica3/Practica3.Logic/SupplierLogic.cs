@@ -42,14 +42,12 @@ namespace Practica3.Logic
                 string.IsNullOrEmpty(newSupplierDTO.ContactName) || 
                 string.IsNullOrEmpty(newSupplierDTO.ContactTitle) ||
                 string.IsNullOrEmpty(newSupplierDTO.Address) ||
-                string.IsNullOrEmpty(newSupplierDTO.Region) ||
                 string.IsNullOrEmpty(newSupplierDTO.City) || 
                 string.IsNullOrEmpty(newSupplierDTO.PostalCode) || 
                 string.IsNullOrEmpty(newSupplierDTO.Country) ||
-                string.IsNullOrEmpty(newSupplierDTO.Phone) ||
-                string.IsNullOrEmpty(newSupplierDTO.Fax))
+                string.IsNullOrEmpty(newSupplierDTO.Phone))
             {
-                throw new ArgumentException("This field cannot be empty.", nameof(newSupplierDTO.CompanyName));
+                throw new ArgumentException("This field cannot be empty.");
             }
 
             if (!Regex.IsMatch(newSupplierDTO.CompanyName, @"^[A-Za-z\s]+$"))
@@ -67,7 +65,7 @@ namespace Practica3.Logic
                 throw new ArgumentException("Contact title can only contain letters.", nameof(newSupplierDTO.ContactTitle));
             }
 
-            if (!Regex.IsMatch(newSupplierDTO.Region, @"^[A-Za-z\s]+$"))
+            if (!string.IsNullOrEmpty(newSupplierDTO.Region) && !Regex.IsMatch(newSupplierDTO.Region, @"^[A-Za-z\s]+$"))
             {
                 throw new ArgumentException("Region can only contain letters.", nameof(newSupplierDTO.Region));
             }
@@ -98,7 +96,7 @@ namespace Practica3.Logic
                 throw new ArgumentException("The telephone number cannot be longer than 24 characters.", nameof(newSupplierDTO.Phone));
             }
 
-            if (!Regex.IsMatch(newSupplierDTO.Fax, @"^[0-9]+$"))
+            if (!string.IsNullOrEmpty(newSupplierDTO.Fax) && !Regex.IsMatch(newSupplierDTO.Fax, @"^[0-9]+$"))
             {
                 throw new ArgumentException("The Fax can only contain numeric digits.", nameof(newSupplierDTO.Fax));
             }
@@ -162,7 +160,7 @@ namespace Practica3.Logic
                 throw new ArgumentException("Contact title can only contain letters.", nameof(updatedSupplierDTO.ContactTitle));
             }
 
-            if (!Regex.IsMatch(updatedSupplierDTO.Region, @"^[A-Za-z\s]+$"))
+            if (!string.IsNullOrEmpty(updatedSupplierDTO.Region) && !Regex.IsMatch(updatedSupplierDTO.Region, @"^[A-Za-z\s]+$"))
             {
                 throw new ArgumentException("Region can only contain letters.", nameof(updatedSupplierDTO.Region));
             }
@@ -187,9 +185,9 @@ namespace Practica3.Logic
                 throw new ArgumentException("The phone number cannot be longer than 24 characters.", nameof(updatedSupplierDTO.Phone));
             }
 
-            if (!Regex.IsMatch(updatedSupplierDTO.Fax, @"^[0-9]+$"))
+            if (!string.IsNullOrEmpty(updatedSupplierDTO.Fax) && !Regex.IsMatch(updatedSupplierDTO.Fax, @"^[0-9]+$"))
             {
-                throw new ArgumentException("Fax can only contain numeric digits.", nameof(updatedSupplierDTO.Fax));
+                throw new ArgumentException("The Fax can only contain numeric digits.", nameof(updatedSupplierDTO.Fax));
             }
 
             if (!Regex.IsMatch(updatedSupplierDTO.PostalCode, @"^[0-9]+$"))
