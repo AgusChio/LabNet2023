@@ -1,0 +1,56 @@
+﻿@model Practica3.Entities.DTO.MarvelDTO.MarvelApiResponse
+
+@{
+    ViewBag.Title = "Marvel Characters";
+}
+
+<h1>Marvel Characters</h1>
+
+<div class="table-responsive">
+    <table class="table table-dark table-striped table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Series</th>
+            <th>Comics</th>
+            <th>Stories</th>
+        </tr>
+        @foreach (var character in Model.Data.Results)
+        {
+            <tr>
+                <td>@character.Name</td>
+                <td>
+                    <img src="@character.ThumbnailUrl" alt="@character.Name" width="100" />
+                </td>
+                <td>
+                    <ol>
+                        @foreach (var series in character.Series.Items)
+                        {
+                           <li>@series.Name</li> 
+                        }
+                    </ol>
+                   
+                </td>
+                <td>
+                    <ol>
+                        @foreach (var comic in character.Comics.Items)
+                        {
+                            <li>@comic.Name</li>
+                        }
+                    </ol>
+                    
+                </td>
+                <td>
+                    <ol>
+                        @foreach (var story in character.Stories.Items)
+                        {
+                            <li>@story.Name</li>
+                        }
+                    </ol>
+                    
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>

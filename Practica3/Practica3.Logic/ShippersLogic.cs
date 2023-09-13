@@ -36,7 +36,7 @@ namespace Practica3.Logic
                 throw new ArgumentException("The company name cannot contain numbers.", nameof(newShipper.CompanyName));
             }
 
-            if (!Regex.IsMatch(newShipper.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
+            if (!string.IsNullOrEmpty(newShipper.Phone) && !Regex.IsMatch(newShipper.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
             {
                 throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).", nameof(newShipper.Phone));
             }
@@ -107,9 +107,20 @@ namespace Practica3.Logic
             _context.SaveChanges();
         }
 
-        public Shippers GetById(int id)
+        public ShippersDTO GetById(int id)
         {
-            return _context.Shippers.Find(id);
+
+            var shipper = _context.Shippers.Find(id) ?? throw new ArgumentException($"No shipper with the ID {id} was found.");
+
+            var shipperDTO = new ShippersDTO
+            {
+                ShipperID = shipper.ShipperID,
+                CompanyName = shipper.CompanyName,
+                Phone = shipper.Phone
+            };
+
+            return shipperDTO;
+
         }
     }
 }

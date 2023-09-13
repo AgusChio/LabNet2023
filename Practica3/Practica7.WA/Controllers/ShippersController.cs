@@ -2,21 +2,23 @@
 using Practica3.Logic;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Http;
-
+using System.Web.Mvc;
 
 namespace Practica7.WA.Controllers
 {
-    public class SuppliersController : ApiController
+    public class ShippersController : ApiController
     {
-        SupplierLogic logic = new SupplierLogic();
+        ShippersLogic logic = new ShippersLogic();
 
-        // GET: Suppliers
+        // GET: Shippers
         public IHttpActionResult Get()
         {
             try
             {
-                List<SuppliersDTO> shippers = logic.GetAll();
+                List<ShippersDTO> shippers = logic.GetAll();
                 return Ok(shippers);
             }
             catch (Exception ex)
@@ -25,26 +27,26 @@ namespace Practica7.WA.Controllers
             }
         }
 
-        // GET: Suppliers/5
+        // GET: Shippers/5
         public IHttpActionResult Get(int id)
         {
             try
             {
-                SuppliersDTO supplier = logic.GetById(id);
-                return Ok(supplier);
+                ShippersDTO shipper = logic.GetById(id);
+                return Ok(shipper);
             }
             catch (Exception ex)
             {
                 return InternalServerError(ex);
             }
-        }
+        }   
 
-        // POST: Suppliers
-        public IHttpActionResult Post(SuppliersDTO supplier)
+        // POST: Shippers
+        public IHttpActionResult Post(ShippersDTO shipper)
         {
             try
             {
-                logic.Add(supplier);
+                logic.Add(shipper);
                 return Ok();
             }
             catch (Exception ex)
@@ -53,14 +55,14 @@ namespace Practica7.WA.Controllers
             }
         }
 
-        // PUT: Suppliers/5
-        public IHttpActionResult Put(int id, [FromBody] SuppliersDTO suppliersDTO)
+        // PUT: Shippers/5
+        public IHttpActionResult Put(int id, [FromBody] ShippersDTO shippersDTO)
         {
             try
             {
-                suppliersDTO.SupplierID = id;
-                logic.Update(suppliersDTO);
-                return Ok(suppliersDTO);
+                shippersDTO.ShipperID = id;
+                logic.Update(shippersDTO);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -68,7 +70,7 @@ namespace Practica7.WA.Controllers
             }
         }
 
-        // DELETE: Suppliers/5
+        // DELETE: Shippers/5
         public IHttpActionResult Delete(int id)
         {
             try
@@ -81,5 +83,6 @@ namespace Practica7.WA.Controllers
                 return InternalServerError(ex);
             }
         }
+
     }
 }
