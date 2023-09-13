@@ -136,7 +136,13 @@ namespace Practica3.Logic
             Console.Write("Ingrese el ID del transportista a eliminar: ");
             int shipperIDToDelete = int.Parse(Console.ReadLine());
 
-            Shippers shipperToDelete = _shippersLogic.GetById(shipperIDToDelete);
+            ShippersDTO dto = _shippersLogic.GetById(shipperIDToDelete);
+            Shippers shipperToDelete = new Shippers
+            {
+                ShipperID = dto.ShipperID,
+                CompanyName = dto.CompanyName,
+                Phone = dto.Phone
+            };
 
             if (shipperToDelete == null)
             {

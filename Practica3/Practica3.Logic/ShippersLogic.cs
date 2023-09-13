@@ -26,9 +26,9 @@ namespace Practica3.Logic
                 throw new ArgumentNullException(nameof(newShipper), "The shipper cannot be void.");
             }
 
-            if (string.IsNullOrEmpty(newShipper.CompanyName) || string.IsNullOrEmpty(newShipper.Phone))
+            if (string.IsNullOrEmpty(newShipper.CompanyName))
             {
-                throw new ArgumentException("It appears that there are empty fields, please review and complete the form." , nameof(newShipper.CompanyName));
+                throw new ArgumentException("Company name cannot be empty.", nameof(newShipper.CompanyName));
             }
 
             if (!Regex.IsMatch(newShipper.CompanyName, @"^[A-Za-z\s]+$"))
@@ -39,11 +39,6 @@ namespace Practica3.Logic
             if (!string.IsNullOrEmpty(newShipper.Phone) && !Regex.IsMatch(newShipper.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
             {
                 throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).", nameof(newShipper.Phone));
-            }
-
-            if (newShipper.Phone.Length > 24)
-            {
-                throw new ArgumentException("The telephone number cannot be longer than 24 characters.", nameof(newShipper.Phone));
             }
 
             var shipper = new Shippers
