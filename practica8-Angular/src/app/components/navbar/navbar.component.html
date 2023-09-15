@@ -1,25 +1,25 @@
 <nav class="navbar navbar-expand-lg p-3">
     <div class="container-fluid">
-        <div class="container-logo-name d-flex align-items-center w-50">
-            <span class="iconify me-3" data-icon="icon-park-twotone:api" data-width="40" data-height="40"></span>
+        <div class="d-flex container-logo-name w-50 align-items-center">
+            <span class="iconify" data-icon="icon-park-twotone:api"  data-width="50" data-height="50"></span>
             <a class="navbar-brand fs-4" href="#">API Practica 8</a>
         </div>
 
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="d-flex align-items-center justify-content-end w-50">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-2 mb-lg-0 fs-6">
+                <ul class="navbar-nav mb-2 mb-lg-0 fs-5">
                     <li class="nav-item">
-                        <a class="nav-link me-3" [routerLink]="['']">Home</a>
+                        <a class="nav-link"  [routerLink]="['/home']">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-3" [routerLink]="['/suppliers']">Suppliers</a>
+                        <a class="nav-link"  [routerLink]="['/suppliers']">Suppliers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-3" [routerLink]="['/shippers']">Shippers</a>
+                        <a class="nav-link"  [routerLink]="['/shippers']">Shippers</a>
                     </li>
                 </ul>
             </div>
