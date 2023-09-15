@@ -1,0 +1,6 @@
+nav{
+    background-color: var(--bg-primary);
+}
+.container-logo-name , .container-logo-name a , .navbar-nav .nav-link{
+    color: var(--text-primary-color);
+}
