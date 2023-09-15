@@ -6,9 +6,11 @@ import { SuppliersComponent } from './components/suppliers/suppliers.component';
 
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent},
+  { path: '', component: HomeComponent},
   { path: 'shippers', component: ShippersComponent },
-  { path: 'suppliers', component: SuppliersComponent }
+  { path: 'suppliers', component: SuppliersComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', component: HomeComponent}
 ];
 
 @NgModule({
