@@ -3,7 +3,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 
-export interface suppliers {
+export interface Suppliers {
   companyName: string;
   cantactName: string;
   contactTitle: string;
@@ -16,7 +16,7 @@ export interface suppliers {
   fax: string;
 }
 
-const SUPPLIERS_DATA: suppliers[] = [
+const SUPPLIERS_DATA: Suppliers[] = [
   {companyName: 'Hydrogen', cantactName: '1.0079', contactTitle: 'H', address: 'H', city: 'H', region: 'H', postalCode: 'H', country: 'H', phone: 'H', fax: 'H'},
   {companyName: 'Helium', cantactName: '4.0026', contactTitle: 'He', address: 'He', city: 'He', region: 'He', postalCode: 'He', country: 'He', phone: 'He', fax: 'He'},
   {companyName: 'Lithium', cantactName: '6.941', contactTitle: 'Li', address: 'Li', city: 'Li', region: 'Li', postalCode: 'Li', country: 'Li', phone: 'Li', fax: 'Li'},
@@ -49,7 +49,7 @@ const SUPPLIERS_DATA: suppliers[] = [
 
 export class SuppliersComponent implements AfterViewInit {
   displayedColumns: string[] = ['companyName', 'cantactName', 'contactTitle', 'address', 'city', 'region', 'postalCode', 'country', 'phone', 'fax', 'delete','edit'];
-  dataSource = new MatTableDataSource<suppliers>(SUPPLIERS_DATA);
+  dataSource = new MatTableDataSource<Suppliers>(SUPPLIERS_DATA);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
