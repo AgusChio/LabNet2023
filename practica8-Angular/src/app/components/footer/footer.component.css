@@ -1,4 +1,8 @@
 footer{
-    background-color: var(--bg-primary);
+    background-color: transparent;
     color: var(--text-primary-color);
+}
+
+.border-top{
+    width: 95%;
 }
