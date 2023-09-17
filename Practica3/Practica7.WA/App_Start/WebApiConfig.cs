@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Practica7.WA
 {
@@ -10,6 +11,10 @@ namespace Practica7.WA
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de Web API
+
+            //CORS
+            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            config.EnableCors(cors);
 
             // Rutas de Web API
             config.MapHttpAttributeRoutes();
