@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from './components/shared/shared.module';
 
@@ -12,7 +13,6 @@ import { MainComponent } from './components/main/main.component';
 import { ShippersComponent } from './components/shippers/shippers.component';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     MainComponent,
     ShippersComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

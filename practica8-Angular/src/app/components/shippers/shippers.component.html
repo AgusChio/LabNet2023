@@ -2,7 +2,6 @@
     <h1 class="mt-5 mb-4 fs-1 fw-bold">Shippers</h1>
 </div>
 
-
 <div class="ms-5 mb-5 mt-5">
     <button type="button" class="btn btn-outline-light">
         Create a new Shippers <span class="iconify" data-icon="typcn:plus"></span>
@@ -12,31 +11,58 @@
 <div class="mat-elevation-z8 table-responsive">
     <table mat-table [dataSource]="dataSource">
 
+        <!-- Columna para Company Name -->
         <ng-container matColumnDef="companyName">
             <th mat-header-cell *matHeaderCellDef> Company Name </th>
-            <td mat-cell *matCellDef="let shippers"> {{shippers.CompanyName}} </td>
+            <td mat-cell *matCellDef="let shipper">
+                <ng-container *ngIf="!shipper.isEditing; else editCell">
+                    {{ shipper.CompanyName }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="shipper.CompanyName" class="form-control" />
+                </ng-template>
+            </td>
         </ng-container>
-        
+
+        <!-- Columna para Phone -->
         <ng-container matColumnDef="phone">
             <th mat-header-cell *matHeaderCellDef> Phone </th>
-            <td mat-cell *matCellDef="let shippers"> {{shippers.Phone}} </td>
+            <td mat-cell *matCellDef="let shipper">
+                <ng-container *ngIf="!shipper.isEditing; else editCell">
+                    {{ shipper.Phone }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="shipper.Phone" class="form-control" />
+                </ng-template>
+            </td>
         </ng-container>
-        
+
+        <!-- Columna para Delete -->
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef> Delete </th>
-            <td mat-cell *matCellDef="let shippers"> 
-                <button type="button" class="btn btn-outline-danger">
+            <td mat-cell *matCellDef="let shipper">
+                <button type="button" class="btn btn-outline-danger" (click)="deleteShipper(shipper)">
                     <span class="iconify" data-icon="solar:trash-bin-minimalistic-line-duotone"></span>
                 </button>
             </td>
         </ng-container>
-        
+
+        <!-- Columna para Edit -->
         <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef> Edit </th>
-            <td mat-cell *matCellDef="let shippers">                         
-                <button id="editButton_@supplier.SupplierID" type="button" class="btn btn-outline-secondary">
+            <td mat-cell *matCellDef="let shipper">
+                <button class="btn btn-outline-secondary" (click)="editShipper(shipper)" *ngIf="!shipper.isEditing">
                     <span class="iconify" data-icon="ph:pencil-simple-line-duotone"></span>
                 </button>
+                <button class="btn btn-outline-danger" (click)="cancelEdit(shipper)" *ngIf="shipper.isEditing">
+                    Cancel
+                    <span class="iconify" data-icon="ic:twotone-cancel"></span>
+                </button>
+                <button class="btn btn-outline-success" (click)="saveShipper()" *ngIf="shipper.isEditing">
+                    Save
+                    <span class="iconify" data-icon="ic:twotone-check-box"></span>
+                </button>
+                
             </td>
         </ng-container>
 

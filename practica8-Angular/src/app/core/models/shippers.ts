@@ -1,5 +1,12 @@
-export interface Shippers {
-    ShipperID: number;
+export class Shippers {
+    ShipperID!: number;
     CompanyName: string;
-    phone: string;
+    Phone: string;
+    isEditing: boolean;
+
+    constructor(CompanyName: string, Phone: string) {
+        this.CompanyName = CompanyName;
+        this.Phone = Phone;
+        this.isEditing = false;
+    }
 }

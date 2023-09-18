@@ -33,4 +33,5 @@ export class ShippersServicesService {
   public deleteShipper(id: number): Observable<any>{
     return this.http.delete<any>(`${this.apiURL}/Shippers/${id}`);
   }
+
 }
