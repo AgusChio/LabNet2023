@@ -4,3 +4,7 @@ nav{
 .container-logo-name , .container-logo-name a , .navbar-nav .nav-link{
     color: var(--text-primary-color);
 }
+
+.toggle-hamburger{
+    color: white;
+}

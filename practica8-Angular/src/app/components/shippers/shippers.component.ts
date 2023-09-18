@@ -15,7 +15,7 @@ export class ShippersComponent implements OnInit {
   dataSource = new MatTableDataSource<Shippers>([]);
   editingShipper: Shippers | null = null;
   isCreating: boolean = false;
-  newShipper: Shippers = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true };
+  newShipper: Shippers = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true};
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -63,13 +63,40 @@ export class ShippersComponent implements OnInit {
     }
   }
 
-  createShipper() {
-    // Agregar el nuevo Shippers a la fuente de datos
-    this.dataSource.data.push(this.newShipper);
-
-    // Activar el modo de creación
+  startCreating() {
     this.isCreating = true;
   }
+
+  createShipper() {
+    const newShipper: Shippers = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true};
+    this.dataSource.data.unshift(newShipper);
+    newShipper.isEditing = true;
+    this.editingShipper = newShipper;
+}
+
+cancelCreating() {
+  this.isCreating = false;
+  this.newShipper = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true };
+}
+
+saveCreatingShipper() {
+  this.shippersService.createShipper(this.newShipper).subscribe(
+    (response: Shippers) => {
+      Swal.fire('Success!', 'Shipper created successfully', 'success');
+      this.loadShippers();
+      this.isCreating = false; // Desactiva el modo de creación
+      this.newShipper = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true };
+    },
+    (error) => {
+      console.error(error);
+      Swal.fire('Error!', 'Failed to create shipper. Error: ' + error.error.ExceptionMessage, 'error');
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+  );
+}
+
 
   deleteShipper(shipper: Shippers) {
     Swal.fire({

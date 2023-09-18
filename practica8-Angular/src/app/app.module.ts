@@ -11,7 +11,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainComponent } from './components/main/main.component';
 import { ShippersComponent } from './components/shippers/shippers.component';
-import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     MainComponent,
     ShippersComponent,
-    HomeComponent,
   ],
   imports: [
     BrowserModule,
