@@ -85,12 +85,6 @@ namespace Practica3.Logic
                 throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).", nameof(newSupplierDTO.Phone));
             }
 
-
-            if (!Regex.IsMatch(newSupplierDTO.PostalCode, @"^[0-9]+$"))
-            {
-                throw new ArgumentException("The postal number can only contain numeric digits.", nameof(newSupplierDTO.PostalCode));
-            }
-
             if (newSupplierDTO.Phone.Length > 24)
             {
                 throw new ArgumentException("The telephone number cannot be longer than 24 characters.", nameof(newSupplierDTO.Phone));
@@ -188,11 +182,6 @@ namespace Practica3.Logic
             if (!string.IsNullOrEmpty(updatedSupplierDTO.Fax) && !Regex.IsMatch(updatedSupplierDTO.Fax, @"^[0-9]+$"))
             {
                 throw new ArgumentException("The Fax can only contain numeric digits.", nameof(updatedSupplierDTO.Fax));
-            }
-
-            if (!Regex.IsMatch(updatedSupplierDTO.PostalCode, @"^[0-9]+$"))
-            {
-                throw new ArgumentException("Postal number can only contain numeric digits.", nameof(updatedSupplierDTO.PostalCode));
             }
 
             if (updatedSupplierDTO.Country == null)

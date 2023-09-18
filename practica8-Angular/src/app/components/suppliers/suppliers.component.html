@@ -2,80 +2,181 @@
     <h1 class="mt-5 mb-4 fs-1 fw-bold">Suppliers</h1>
 </div>
 
-
-<div class="ms-5 mb-5 mt-5">
-    <button type="button" class="btn btn-outline-light">
+<div class="ms-5 mb-5 mt-5 pe-3 container-button-create-form">
+    <button *ngIf="!isCreating" type="button" class="btn btn-outline-light" (click)="startCreating()">
         Create a new Suppliers <span class="iconify" data-icon="typcn:plus"></span>
     </button>
-</div>
 
+    <div *ngIf="isCreating" class="d-flex gap-3 flex-wrap w-100 container-inputs-buttons">
+        <div class="d-flex gap-3 w-100 container-inputs">
+            <input [(ngModel)]="newSupplier.CompanyName" class="form-control w-100" placeholder="Company Name" />
+            <input [(ngModel)]="newSupplier.ContactName" class="form-control w-100" placeholder="Contact Name" />
+            <input [(ngModel)]="newSupplier.ContactTitle" class="form-control w-100" placeholder="Contact Title" />
+            <input [(ngModel)]="newSupplier.Address" class="form-control w-100" placeholder="Address" />
+            <input [(ngModel)]="newSupplier.City" class="form-control w-100" placeholder="City" />
+            <input [(ngModel)]="newSupplier.Region" class="form-control w-100" placeholder="Region" />
+            <input [(ngModel)]="newSupplier.PostalCode" class="form-control w-100" placeholder="Postal Code" />
+            <input [(ngModel)]="newSupplier.Country" class="form-control w-100" placeholder="Country" />
+            <input [(ngModel)]="newSupplier.Phone" class="form-control w-100" placeholder="Phone" />
+            <input [(ngModel)]="newSupplier.Fax" class="form-control w-100" placeholder="Fax" />
+        </div>
+        <div class="d-flex gap-3">
+            <button class="btn btn-outline-success" (click)="saveCreatingSupplier()">
+                Save <span class="iconify" data-icon="ic:twotone-check-box"></span>
+            </button>
+            <button class="btn btn-outline-danger" (click)="cancelCreating()">
+                Cancel <span class="iconify" data-icon="ic:twotone-cancel"></span>
+            </button>
+        </div>
+    </div>
+</div>
 <div class="mat-elevation-z8 table-responsive">
     <table mat-table [dataSource]="dataSource">
 
         <ng-container matColumnDef="companyName">
             <th mat-header-cell *matHeaderCellDef> Company Name </th>
-            <td mat-cell *matCellDef="let supplier"> {{supplier.CompanyName}} </td>
+            <td mat-cell *matCellDef="let supplier">
+                <ng-container *ngIf="!supplier.isEditing; else editCell">
+                    {{ supplier.CompanyName }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="supplier.CompanyName" class="form-control" placeholder="Company Name" />
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="contactName">
-            <th mat-header-cell *matHeaderCellDef> Contact cantactName </th>
-            <td mat-cell *matCellDef="let supplier"> {{supplier.ContactName}} </td>
+            <th mat-header-cell *matHeaderCellDef> Contact Name </th>
+            <td mat-cell *matCellDef="let supplier">
+                <ng-container *ngIf="!supplier.isEditing; else editCell">
+                    {{ supplier.ContactName }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="supplier.ContactName" class="form-control" placeholder="Contact Name" />
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="contactTitle">
             <th mat-header-cell *matHeaderCellDef> Contact Title </th>
-            <td mat-cell *matCellDef="let supplier"> {{supplier.ContactTitle}} </td>
+            <td mat-cell *matCellDef="let supplier">
+                <ng-container *ngIf="!supplier.isEditing; else editCell">
+                    {{ supplier.ContactTitle }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="supplier.ContactTitle" class="form-control" placeholder="Contact Title" />
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="address">
             <th mat-header-cell *matHeaderCellDef> Address </th>
-            <td mat-cell *matCellDef="let supplier"> {{supplier.Address}} </td>
+            <td mat-cell *matCellDef="let supplier">
+                <ng-container *ngIf="!supplier.isEditing; else editCell">
+                    {{ supplier.Address }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="supplier.Address" class="form-control" placeholder="Address" />
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="city">
             <th mat-header-cell *matHeaderCellDef> City </th>
-            <td mat-cell *matCellDef="let supplier"> {{supplier.City}} </td>
+            <td mat-cell *matCellDef="let supplier">
+                <ng-container *ngIf="!supplier.isEditing; else editCell">
+                    {{ supplier.City }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="supplier.City" class="form-control" placeholder="City" />
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="region">
             <th mat-header-cell *matHeaderCellDef> Region </th>
-            <td mat-cell *matCellDef="let supplier"> {{supplier.Region}} </td>
+            <td mat-cell *matCellDef="let supplier">
+                <ng-container *ngIf="!supplier.isEditing; else editCell">
+                    {{ supplier.Region }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="supplier.Region" class="form-control" placeholder="Region" />
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="postalCode">
             <th mat-header-cell *matHeaderCellDef> Postal Code </th>
-            <td mat-cell *matCellDef="let supplier"> {{supplier.PostalCode}} </td>
+            <td mat-cell *matCellDef="let supplier">
+                <ng-container *ngIf="!supplier.isEditing; else editCell">
+                    {{ supplier.PostalCode }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="supplier.PostalCode" class="form-control" placeholder="Postal Code" />
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="country">
             <th mat-header-cell *matHeaderCellDef> Country </th>
-            <td mat-cell *matCellDef="let supplier"> {{supplier.Country}} </td>
+            <td mat-cell *matCellDef="let supplier">
+                <ng-container *ngIf="!supplier.isEditing; else editCell">
+                    {{ supplier.Country }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="supplier.Country" class="form-control" placeholder="Country" />
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="phone">
             <th mat-header-cell *matHeaderCellDef> Phone </th>
-            <td mat-cell *matCellDef="let supplier"> {{supplier.Phone}} </td>
+            <td mat-cell *matCellDef="let supplier">
+                <ng-container *ngIf="!supplier.isEditing; else editCell">
+                    {{ supplier.Phone }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="supplier.Phone" class="form-control" placeholder="Phone" />
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="fax">
             <th mat-header-cell *matHeaderCellDef> Fax </th>
-            <td mat-cell *matCellDef="let supplier"> {{supplier.Fax}} </td>
+            <td mat-cell *matCellDef="let supplier">
+                <ng-container *ngIf="!supplier.isEditing; else editCell">
+                    {{ supplier.Fax }}
+                </ng-container>
+                <ng-template #editCell>
+                    <input [(ngModel)]="supplier.Fax" class="form-control" placeholder="Fax" />
+                </ng-template>
+            </td>
         </ng-container>
 
+        <!-- Columna para Delete -->
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef> Delete </th>
-            <td mat-cell *matCellDef="let supplier"> 
-                <button type="button" class="btn btn-outline-danger">
+            <td mat-cell *matCellDef="let supplier">
+                <button type="button" class="btn btn-outline-danger" (click)="deleteSupplier(supplier)">
                     <span class="iconify" data-icon="solar:trash-bin-minimalistic-line-duotone"></span>
                 </button>
             </td>
         </ng-container>
-        
+
+        <!-- Columna para Edit -->
         <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef> Edit </th>
-            <td mat-cell *matCellDef="let supplier">                         
-                <button id="editButton_@supplier.SupplierID" type="button" class="btn btn-outline-secondary">
+            <td mat-cell *matCellDef="let supplier">
+                <button class="btn btn-outline-secondary" (click)="editSupplier(supplier)" *ngIf="!supplier.isEditing">
                     <span class="iconify" data-icon="ph:pencil-simple-line-duotone"></span>
+                </button>
+                <button class="btn btn-outline-danger" (click)="cancelEdit(supplier)" *ngIf="supplier.isEditing">
+                    Cancel
+                    <span class="iconify" data-icon="ic:twotone-cancel"></span>
+                </button>
+                <button class="btn btn-outline-success" (click)="saveSupplier()" *ngIf="supplier.isEditing">
+                    Save
+                    <span class="iconify" data-icon="ic:twotone-check-box"></span>
                 </button>
             </td>
         </ng-container>
