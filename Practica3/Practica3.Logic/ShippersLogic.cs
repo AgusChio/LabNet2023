@@ -28,17 +28,17 @@ namespace Practica3.Logic
 
             if (string.IsNullOrEmpty(newShipper.CompanyName))
             {
-                throw new ArgumentException("Company name cannot be empty.", nameof(newShipper.CompanyName));
+                throw new ArgumentException("Company name cannot be empty.");
             }
 
             if (!Regex.IsMatch(newShipper.CompanyName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("The company name cannot contain numbers.", nameof(newShipper.CompanyName));
+                throw new ArgumentException("The company name cannot contain numbers.");
             }
 
             if (!string.IsNullOrEmpty(newShipper.Phone) && !Regex.IsMatch(newShipper.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
             {
-                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).", nameof(newShipper.Phone));
+                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).");
             }
 
             var shipper = new Shippers
@@ -82,17 +82,17 @@ namespace Practica3.Logic
 
             if (!Regex.IsMatch(shipper.CompanyName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("The company name cannot contain numbers.", nameof(shipper.CompanyName));
+                throw new ArgumentException("The company name cannot contain numbers.");
             }
 
             if (!Regex.IsMatch(shipper.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
             {
-                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).", nameof(shipper.Phone));
+                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).");
             }
 
             if (string.IsNullOrEmpty(shipper.CompanyName) || string.IsNullOrEmpty(shipper.Phone))
             {
-                throw new ArgumentException("It appears that there are empty fields, please review and complete the form." , nameof(shipper.CompanyName));
+                throw new ArgumentException("It appears that there are empty fields, please review and complete the form.");
             }
 
 

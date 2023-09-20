@@ -93,39 +93,7 @@ namespace Practica3.Logic
             Console.Write("Ingrese el teléfono: ");
             newSupplierDTO.Phone = Console.ReadLine();
             Console.Write("Ingrese el fax: ");
-            newSupplierDTO.Fax = Console.ReadLine();
-
-            if (newSupplierDTO == null)
-            {
-                throw new ArgumentNullException(nameof(newSupplierDTO), "El proveedor no puede ser nulo.");
-            }
-
-            if (string.IsNullOrEmpty(newSupplierDTO.CompanyName) ||
-                string.IsNullOrEmpty(newSupplierDTO.ContactName) ||
-                string.IsNullOrEmpty(newSupplierDTO.ContactTitle) ||
-                string.IsNullOrEmpty(newSupplierDTO.Address) ||
-                string.IsNullOrEmpty(newSupplierDTO.City) ||
-                string.IsNullOrEmpty(newSupplierDTO.PostalCode) ||
-                string.IsNullOrEmpty(newSupplierDTO.Country) ||
-                string.IsNullOrEmpty(newSupplierDTO.Phone))
-            {
-                throw new ArgumentException("Este campo no puede estar vacío.");
-            }
-
-            if (!Regex.IsMatch(newSupplierDTO.CompanyName, @"^[A-Za-z\s]+$"))
-            {
-                throw new ArgumentException("El nombre de la empresa no puede contener números.", nameof(newSupplierDTO.CompanyName));
-            }
-
-            if (!Regex.IsMatch(newSupplierDTO.Phone, @"^[0-9]+$"))
-            {
-                throw new ArgumentException("El número de teléfono solo puede contener dígitos numéricos.", nameof(newSupplierDTO.Phone));
-            }
-
-            if (newSupplierDTO.Phone.Length > 24)
-            {
-                throw new ArgumentException("El número de teléfono no puede tener más de 24 caracteres.", nameof(newSupplierDTO.Phone));
-            }
+            newSupplierDTO.Fax = Console.ReadLine();    
 
             try
             {
@@ -147,8 +115,7 @@ namespace Practica3.Logic
 
             SuppliersDTO supplierToUpdate = _supplierLogic.GetById(supplierIDToUpdate);
 
-            if (supplierToUpdate != null)
-            {
+
                 Console.WriteLine($"Proveedor actual:");
                 Console.WriteLine($"ID: {supplierToUpdate.SupplierID}");
                 Console.WriteLine($"Nombre de la empresa: {supplierToUpdate.CompanyName}");
@@ -166,11 +133,6 @@ namespace Practica3.Logic
                 updatedSupplierDTO.Region = Console.ReadLine();
                 Console.WriteLine("Ingrese el nuevo fax: ");
                 updatedSupplierDTO.Fax = Console.ReadLine();
-
-                if (updatedSupplierDTO.Region.Length > 24 || updatedSupplierDTO.Fax.Length > 24)
-                {
-                    throw new ArgumentException("Este campo no puede tener más de 24 caracteres");
-                }
 
                 try
                 {
@@ -194,11 +156,6 @@ namespace Practica3.Logic
                 {
                     Console.WriteLine($"Error al actualizar el proveedor: {ex.Message}");
                 }
-            }
-            else
-            {
-                Console.WriteLine($"No se encontró ningún proveedor con el ID {supplierIDToUpdate}.");
-            }
         }
 
         public void DeleteSupplier()

@@ -144,12 +144,6 @@ namespace Practica3.Logic
                 Phone = dto.Phone
             };
 
-            if (shipperToDelete == null)
-            {
-                Console.WriteLine($"No se encontró ningún transportista con el ID {shipperIDToDelete}.");
-                return;
-            }
-
             Console.WriteLine($"ID: {shipperToDelete.ShipperID}");
             Console.WriteLine($"Nombre de la empresa: {shipperToDelete.CompanyName}");
             Console.WriteLine($"Teléfono: {shipperToDelete.Phone}");

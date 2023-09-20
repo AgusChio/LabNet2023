@@ -52,47 +52,47 @@ namespace Practica3.Logic
 
             if (!Regex.IsMatch(newSupplierDTO.CompanyName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("The company name cannot contain numbers.", nameof(newSupplierDTO.CompanyName));
+                throw new ArgumentException("The company name cannot contain numbers.");
             }
 
             if (!Regex.IsMatch(newSupplierDTO.ContactName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("Contact name can only contain letters.", nameof(newSupplierDTO.ContactName));
+                throw new ArgumentException("Contact name can only contain letters.");
             }
 
             if (!Regex.IsMatch(newSupplierDTO.ContactTitle, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("Contact title can only contain letters.", nameof(newSupplierDTO.ContactTitle));
+                throw new ArgumentException("Contact title can only contain letters.");
             }
 
             if (!string.IsNullOrEmpty(newSupplierDTO.Region) && !Regex.IsMatch(newSupplierDTO.Region, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("Region can only contain letters.", nameof(newSupplierDTO.Region));
+                throw new ArgumentException("Region can only contain letters.");
             }
 
             if (!Regex.IsMatch(newSupplierDTO.City, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("City can only contain letters.", nameof(newSupplierDTO.City));
+                throw new ArgumentException("City can only contain letters.");
             }
 
             if (!Regex.IsMatch(newSupplierDTO.Country, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("Country can only contain letters.", nameof(newSupplierDTO.Country));
+                throw new ArgumentException("Country can only contain letters.");
             }
 
             if (!Regex.IsMatch(newSupplierDTO.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
             {
-                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).", nameof(newSupplierDTO.Phone));
+                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).");
             }
 
             if (newSupplierDTO.Phone.Length > 24)
             {
-                throw new ArgumentException("The telephone number cannot be longer than 24 characters.", nameof(newSupplierDTO.Phone));
+                throw new ArgumentException("The telephone number cannot be longer than 24 characters.");
             }
 
             if (!string.IsNullOrEmpty(newSupplierDTO.Fax) && !Regex.IsMatch(newSupplierDTO.Fax, @"^[0-9]+$"))
             {
-                throw new ArgumentException("The Fax can only contain numeric digits.", nameof(newSupplierDTO.Fax));
+                throw new ArgumentException("The Fax can only contain numeric digits.");
             }
 
 
@@ -141,47 +141,47 @@ namespace Practica3.Logic
 
             if (!Regex.IsMatch(updatedSupplierDTO.CompanyName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("The company name cannot contain numbers.", nameof(updatedSupplierDTO.CompanyName));
+                throw new ArgumentException("The company name cannot contain numbers.");
             }
 
             if (!Regex.IsMatch(updatedSupplierDTO.ContactName, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("Contact name can only contain letters.", nameof(updatedSupplierDTO.ContactName));
+                throw new ArgumentException("Contact name can only contain letters.");
             }
 
             if (!Regex.IsMatch(updatedSupplierDTO.ContactTitle, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("Contact title can only contain letters.", nameof(updatedSupplierDTO.ContactTitle));
+                throw new ArgumentException("Contact title can only contain letters.");
             }
 
             if (!string.IsNullOrEmpty(updatedSupplierDTO.Region) && !Regex.IsMatch(updatedSupplierDTO.Region, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("Region can only contain letters.", nameof(updatedSupplierDTO.Region));
+                throw new ArgumentException("Region can only contain letters.");
             }
 
             if (!Regex.IsMatch(updatedSupplierDTO.City, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("City can only contain letters.", nameof(updatedSupplierDTO.City));
+                throw new ArgumentException("City can only contain letters.");
             }
 
             if (!Regex.IsMatch(updatedSupplierDTO.Country, @"^[A-Za-z\s]+$"))
             {
-                throw new ArgumentException("Country can only contain letters.", nameof(updatedSupplierDTO.Country));
+                throw new ArgumentException("Country can only contain letters.");
             }
 
             if (!Regex.IsMatch(updatedSupplierDTO.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
             {
-                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).", nameof(updatedSupplierDTO.Phone));
+                throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).");
             }
 
             if (updatedSupplierDTO.Phone.Length > 24)
             {
-                throw new ArgumentException("The phone number cannot be longer than 24 characters.", nameof(updatedSupplierDTO.Phone));
+                throw new ArgumentException("The phone number cannot be longer than 24 characters.");
             }
 
             if (!string.IsNullOrEmpty(updatedSupplierDTO.Fax) && !Regex.IsMatch(updatedSupplierDTO.Fax, @"^[0-9]+$"))
             {
-                throw new ArgumentException("The Fax can only contain numeric digits.", nameof(updatedSupplierDTO.Fax));
+                throw new ArgumentException("The Fax can only contain numeric digits.");
             }
 
             if (updatedSupplierDTO.Country == null)
