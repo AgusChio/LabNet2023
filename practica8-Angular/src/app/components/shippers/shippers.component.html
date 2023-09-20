@@ -16,7 +16,7 @@
             <button class="btn btn-outline-success" (click)="saveCreatingShipper()">
                 Save <span class="iconify" data-icon="ic:twotone-check-box"></span>
             </button>
-            <button class="btn btn-outline-danger" (click)="cancelCreating()">
+            <button class="btn btn-outline-danger me-3" (click)="cancelCreating()">
                 Cancel <span class="iconify" data-icon="ic:twotone-cancel"></span>
             </button>
         </div>
@@ -35,6 +35,9 @@
                 </ng-container>
                 <ng-template #editCell>
                     <input [(ngModel)]="shipper.CompanyName" class="form-control" placeholder="Company Name" />
+                    <div *ngIf="shipper.CompanyName.length > 40" class="text-danger">
+                        The Company Name cannot exceed 24 characters.
+                    </div>
                 </ng-template>
             </td>
         </ng-container>
@@ -47,7 +50,10 @@
                     {{ shipper.Phone }}
                 </ng-container>
                 <ng-template #editCell>
-                    <input [(ngModel)]="shipper.Phone" class="form-control" placeholder="Phone" />
+                    <input [(ngModel)]="shipper.Phone" class="form-control" placeholder="Phone" minlength="0" />
+                    <div *ngIf="shipper.Phone.length > 24" class="text-danger">
+                        The phone number cannot exceed 24 characters.
+                    </div>
                 </ng-template>
             </td>
         </ng-container>
@@ -73,7 +79,7 @@
                     Cancel
                     <span class="iconify" data-icon="ic:twotone-cancel"></span>
                 </button>
-                <button class="btn btn-outline-success" (click)="saveShipper()" *ngIf="shipper.isEditing">
+                <button class="btn btn-outline-success" (click)="saveShipperEdited()" *ngIf="shipper.isEditing">
                     Save
                     <span class="iconify" data-icon="ic:twotone-check-box"></span>
                 </button>

@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { ShippersServicesService } from '../service/shippers.services.service';
 import { Shippers } from 'src/app/core/models/shippers';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,15 +15,28 @@ import Swal from 'sweetalert2';
   styleUrls: ['./shippers.component.css']
 })
 export class ShippersComponent implements OnInit {
+  form: FormGroup;
   displayedColumns: string[] = ['companyName', 'phone', 'delete', 'edit'];
   dataSource = new MatTableDataSource<Shippers>([]);
   editingShipper: Shippers | null = null;
   isCreating: boolean = false;
-  newShipper: Shippers = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true};
+  newShipper: Shippers = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true };
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private shippersService: ShippersServicesService) { }
+  constructor(private shippersService: ShippersServicesService, private fb: FormBuilder) {
+    this.form = this.fb.group({
+      CompanyName: [
+        '' || null,
+        [Validators.required, Validators.maxLength(40)]
+
+      ],
+      Phone: [
+        '' || null,
+        [Validators.pattern(/^\(\d{3}\) \d{3}-\d{4}$/), Validators.maxLength(24)]
+      ],
+    });
+  }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -44,17 +61,74 @@ export class ShippersComponent implements OnInit {
     shipper.isEditing = false;
   }
 
-  saveShipper() {
+  saveShipperEdited() {
     if (this.editingShipper) {
-      this.shippersService.updateShipper(this.editingShipper).subscribe(
+      if (this.form.get('CompanyName')?.hasError('maxlength')) {
+        Swal.fire('Error!', 'Company name cannot exceed 40 characters.', 'error');
+        return;
+      }
+
+      if (this.form.get('Phone')?.hasError('maxlength')) {
+        Swal.fire('Error!', 'Phone number cannot exceed 24 characters.', 'error');
+        return;
+      }
+      if (this.editingShipper) {
+        this.shippersService.updateShipper(this.editingShipper).subscribe(
+          (response: Shippers) => {
+            Swal.fire('Success!', 'Shipper updated successfully', 'success');
+            this.loadShippers();
+            this.editingShipper = null;
+          },
+          (error) => {
+            console.error(error);
+            Swal.fire('Error!', 'Failed to update shipper. Error: ' + error.error.ExceptionMessage, 'error');
+            setTimeout(() => {
+              window.location.reload();
+            }, 5000);
+          }
+        );
+      }
+    }
+  }
+
+
+  startCreating() {
+    this.isCreating = true;
+  }
+
+  createShipper() {
+    const newShipper: Shippers = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true };
+    this.dataSource.data.unshift(newShipper);
+    newShipper.isEditing = true;
+    this.editingShipper = newShipper;
+  }
+
+  cancelCreating() {
+    this.isCreating = false;
+    this.newShipper = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true };
+  }
+
+  saveCreatingShipper() {
+    if (this.editingShipper) {
+      if (this.form.get('CompanyName')?.hasError('maxlength')) {
+        Swal.fire('Error!', 'Company name cannot exceed 40 characters.', 'error');
+        return;
+      }
+
+      if (this.form.get('Phone')?.hasError('maxlength')) {
+        Swal.fire('Error!', 'Phone number cannot exceed 24 characters.', 'error');
+        return;
+      }
+      this.shippersService.createShipper(this.newShipper).subscribe(
         (response: Shippers) => {
-          Swal.fire('Success!', 'Shipper updated successfully', 'success');
+          Swal.fire('Success!', 'Shipper created successfully', 'success');
           this.loadShippers();
-          this.editingShipper = null;
+          this.isCreating = false; 
+          this.newShipper = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true };
         },
         (error) => {
           console.error(error);
-          Swal.fire('Error!', 'Failed to update shipper. Error: ' + error.error.ExceptionMessage, 'error');
+          Swal.fire('Error!', 'Failed to create shipper. Error: ' + error.error.ExceptionMessage, 'error');
           setTimeout(() => {
             window.location.reload();
           }, 2000);
@@ -62,40 +136,6 @@ export class ShippersComponent implements OnInit {
       );
     }
   }
-
-  startCreating() {
-    this.isCreating = true;
-  }
-
-  createShipper() {
-    const newShipper: Shippers = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true};
-    this.dataSource.data.unshift(newShipper);
-    newShipper.isEditing = true;
-    this.editingShipper = newShipper;
-}
-
-cancelCreating() {
-  this.isCreating = false;
-  this.newShipper = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true };
-}
-
-saveCreatingShipper() {
-  this.shippersService.createShipper(this.newShipper).subscribe(
-    (response: Shippers) => {
-      Swal.fire('Success!', 'Shipper created successfully', 'success');
-      this.loadShippers();
-      this.isCreating = false; // Desactiva el modo de creación
-      this.newShipper = { ShipperID: 0, CompanyName: '', Phone: '', isEditing: true, isCreating: true };
-    },
-    (error) => {
-      console.error(error);
-      Swal.fire('Error!', 'Failed to create shipper. Error: ' + error.error.ExceptionMessage, 'error');
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    }
-  );
-}
 
 
   deleteShipper(shipper: Shippers) {

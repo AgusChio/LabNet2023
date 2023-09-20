@@ -41,6 +41,17 @@ namespace Practica3.Logic
                 throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).");
             }
 
+
+            if (newShipper.CompanyName.Length > 40)
+            {
+                throw new ArgumentException("The company name cannot be longer than 40 characters.");
+            }
+
+            if (newShipper.Phone.Length > 24)
+            {
+                throw new ArgumentException("The phone number cannot be longer than 24 characters.");
+            }
+
             var shipper = new Shippers
             {
                 CompanyName = newShipper.CompanyName,
@@ -85,14 +96,24 @@ namespace Practica3.Logic
                 throw new ArgumentException("The company name cannot contain numbers.");
             }
 
-            if (!Regex.IsMatch(shipper.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
+            if (!string.IsNullOrEmpty(shipper.Phone) && !Regex.IsMatch(shipper.Phone, @"^\(\d{3}\) \d{3}-\d{4}$"))
             {
                 throw new ArgumentException("The telephone number is not in the correct format (for example, (235) 234-2356).");
             }
 
-            if (string.IsNullOrEmpty(shipper.CompanyName) || string.IsNullOrEmpty(shipper.Phone))
+            if (string.IsNullOrEmpty(shipper.CompanyName))
             {
                 throw new ArgumentException("It appears that there are empty fields, please review and complete the form.");
+            }
+
+            if (shipper.CompanyName.Length > 40)
+            {
+                throw new ArgumentException("The company name cannot be longer than 40 characters.");
+            }
+
+            if (shipper.Phone.Length > 24)
+            {
+                throw new ArgumentException("The phone number cannot be longer than 24 characters.");
             }
 
 

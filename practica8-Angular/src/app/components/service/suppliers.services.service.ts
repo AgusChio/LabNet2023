@@ -14,22 +14,22 @@ export class SuppliersServicesService {
   constructor(private http:HttpClient) { }
 
   public getSuppliers(): Observable<Suppliers[]>{
-    return this.http.get<Suppliers[]>(`${this.apiURL}/Suppliers`);
+    return this.http.get<Suppliers[]>(`${this.apiURL}Suppliers`);
   }
 
   public getSupplierById(id: number): Observable<Suppliers>{
-    return this.http.get<Suppliers>(`${this.apiURL}/Suppliers/${id}`);
+    return this.http.get<Suppliers>(`${this.apiURL}Suppliers/${id}`);
   }
 
   public createSupplier(supplier: Suppliers): Observable<Suppliers>{
-    return this.http.post<Suppliers>(`${this.apiURL}/Suppliers`, supplier);
+    return this.http.post<Suppliers>(`${this.apiURL}Suppliers`, supplier);
   }
 
   public updateSupplier(supplier: Suppliers): Observable<Suppliers>{
-    return this.http.put<Suppliers>(`${this.apiURL}/Suppliers/${supplier.SupplierID}`, supplier);
+    return this.http.put<Suppliers>(`${this.apiURL}Suppliers/${supplier.SupplierID}`, supplier);
   }
 
   public deleteSupplier(id: number): Observable<any>{
-    return this.http.delete<any>(`${this.apiURL}/Suppliers/${id}`);
+    return this.http.delete<any>(`${this.apiURL}Suppliers/${id}`);
   }
 }

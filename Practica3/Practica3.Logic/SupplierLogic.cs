@@ -90,6 +90,51 @@ namespace Practica3.Logic
                 throw new ArgumentException("The telephone number cannot be longer than 24 characters.");
             }
 
+            if (newSupplierDTO.CompanyName.Length > 40)
+            {
+                throw new ArgumentException("The Company Name cannot be longer than 40 characters.");
+            }
+
+            if (newSupplierDTO.ContactName.Length > 30)
+            {
+                throw new ArgumentException("The Contact Name cannot be longer than 30 characters.");
+            }
+
+            if (newSupplierDTO.ContactTitle.Length > 30)
+            {
+                throw new ArgumentException("The Contact Title cannot be longer than 30 characters.");
+            }
+
+            if (newSupplierDTO.Address.Length > 60)
+            {
+                throw new ArgumentException("The Address cannot be longer than 60 characters.");
+            }
+
+            if (newSupplierDTO.City.Length > 15)
+            {
+                throw new ArgumentException("The City cannot be longer than 15 characters.");
+            }
+
+            if (newSupplierDTO.Region.Length > 15)
+            {
+                throw new ArgumentException("The Region cannot be longer than 15 characters.");
+            }
+
+            if (newSupplierDTO.PostalCode.Length > 10)
+            {
+                throw new ArgumentException("The Postal Code cannot be longer than 10 characters.");
+            }
+
+            if (newSupplierDTO.Country.Length > 15)
+            {
+                throw new ArgumentException("The Country cannot be longer than 15 characters.");
+            }
+
+            if (newSupplierDTO.Fax.Length > 24)
+            {
+                throw new ArgumentException("The Fax cannot be longer than 24 characters.");
+            }
+
             if (!string.IsNullOrEmpty(newSupplierDTO.Fax) && !Regex.IsMatch(newSupplierDTO.Fax, @"^[0-9]+$"))
             {
                 throw new ArgumentException("The Fax can only contain numeric digits.");
@@ -177,6 +222,51 @@ namespace Practica3.Logic
             if (updatedSupplierDTO.Phone.Length > 24)
             {
                 throw new ArgumentException("The phone number cannot be longer than 24 characters.");
+            }
+
+            if (updatedSupplierDTO.CompanyName.Length > 40 )
+            {
+                throw new ArgumentException("The Company Name cannot be longer than 40 characters.");
+            }
+
+            if (updatedSupplierDTO.ContactName.Length > 30)
+            {
+                throw new ArgumentException("The Contact Name cannot be longer than 30 characters.");
+            }
+
+            if (updatedSupplierDTO.ContactTitle.Length > 30)
+            {
+                throw new ArgumentException("The Contact Title cannot be longer than 30 characters.");
+            }
+
+            if (updatedSupplierDTO.Address.Length > 60)
+            {
+                throw new ArgumentException("The Address cannot be longer than 60 characters.");
+            }
+
+            if (updatedSupplierDTO.City.Length > 15)
+            {
+                throw new ArgumentException("The City cannot be longer than 15 characters.");
+            }
+
+            if (updatedSupplierDTO.Region.Length > 15)
+            {
+                throw new ArgumentException("The Region cannot be longer than 15 characters.");
+            }
+
+            if (updatedSupplierDTO.PostalCode.Length > 10)
+            {
+                throw new ArgumentException("The Postal Code cannot be longer than 10 characters.");
+            }
+
+            if (updatedSupplierDTO.Country.Length > 15)
+            {
+                throw new ArgumentException("The Country cannot be longer than 15 characters.");
+            }
+
+            if (updatedSupplierDTO.Fax.Length > 24)
+            {
+                throw new ArgumentException("The Fax cannot be longer than 24 characters.");
             }
 
             if (!string.IsNullOrEmpty(updatedSupplierDTO.Fax) && !Regex.IsMatch(updatedSupplierDTO.Fax, @"^[0-9]+$"))
