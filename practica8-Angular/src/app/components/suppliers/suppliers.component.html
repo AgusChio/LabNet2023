@@ -10,15 +10,34 @@
     <div *ngIf="isCreating" class="d-flex gap-3 flex-wrap w-100 container-inputs-buttons">
         <div class="d-flex gap-3 w-100 container-inputs">
             <input [(ngModel)]="newSupplier.CompanyName" class="form-control w-100" placeholder="Company Name" />
+            <div *ngIf="newSupplier.CompanyName.length > 40" class="text-danger">Company Name cannot be longer than 40
+                characters.</div>
             <input [(ngModel)]="newSupplier.ContactName" class="form-control w-100" placeholder="Contact Name" />
+            <div *ngIf="newSupplier.ContactName.length > 30" class="text-danger">Contact Name cannot be longer than 30
+                characters.</div>
             <input [(ngModel)]="newSupplier.ContactTitle" class="form-control w-100" placeholder="Contact Title" />
+            <div *ngIf="newSupplier.ContactTitle.length > 30" class="text-danger">Contact Title cannot be longer than 30
+                characters.</div>
             <input [(ngModel)]="newSupplier.Address" class="form-control w-100" placeholder="Address" />
+            <div *ngIf="newSupplier.Address.length > 60" class="text-danger">Address cannot be longer than 60
+                characters.</div>
             <input [(ngModel)]="newSupplier.City" class="form-control w-100" placeholder="City" />
+            <div *ngIf="newSupplier.City.length > 15" class="text-danger">City cannot be longer than 15 characters.
+            </div>
             <input [(ngModel)]="newSupplier.Region" class="form-control w-100" placeholder="Region" />
+            <div *ngIf="newSupplier.Region.length > 15" class="text-danger">Region cannot be longer than 15 characters.
+            </div>
             <input [(ngModel)]="newSupplier.PostalCode" class="form-control w-100" placeholder="Postal Code" />
+            <div *ngIf="newSupplier.PostalCode.length > 10" class="text-danger">Postal Code cannot be longer than 10
+                characters.</div>
             <input [(ngModel)]="newSupplier.Country" class="form-control w-100" placeholder="Country" />
+            <div *ngIf="newSupplier.Country.length > 15" class="text-danger">Country cannot be longer than 15
+                characters.</div>
             <input [(ngModel)]="newSupplier.Phone" class="form-control w-100" placeholder="Phone" />
+            <div *ngIf="newSupplier.Phone.length > 24" class="text-danger">Phone cannot be longer than 24 characters.
+            </div>
             <input [(ngModel)]="newSupplier.Fax" class="form-control w-100" placeholder="Fax" />
+            <div *ngIf="newSupplier.Fax.length > 24" class="text-danger">Fax cannot be longer than 24 characters.</div>
         </div>
         <div class="d-flex gap-3">
             <button class="btn btn-outline-success" (click)="saveCreatingSupplier()">
@@ -41,6 +60,8 @@
                 </ng-container>
                 <ng-template #editCell>
                     <input [(ngModel)]="supplier.CompanyName" class="form-control" placeholder="Company Name" />
+                    <div *ngIf="supplier.CompanyName.length > 40" class="text-danger">Company Name cannot be longer than
+                        40 characters.</div>
                 </ng-template>
             </td>
         </ng-container>
@@ -53,6 +74,8 @@
                 </ng-container>
                 <ng-template #editCell>
                     <input [(ngModel)]="supplier.ContactName" class="form-control" placeholder="Contact Name" />
+                    <div *ngIf="supplier.ContactName.length > 30" class="text-danger">Contact Name cannot be longer than
+                        30 characters.</div>
                 </ng-template>
             </td>
         </ng-container>
@@ -65,6 +88,8 @@
                 </ng-container>
                 <ng-template #editCell>
                     <input [(ngModel)]="supplier.ContactTitle" class="form-control" placeholder="Contact Title" />
+                    <div *ngIf="supplier.ContactTitle.length > 30" class="text-danger">Contact Title cannot be longer
+                        than 30 characters.</div>
                 </ng-template>
             </td>
         </ng-container>
@@ -77,6 +102,8 @@
                 </ng-container>
                 <ng-template #editCell>
                     <input [(ngModel)]="supplier.Address" class="form-control" placeholder="Address" />
+                    <div *ngIf="supplier.Address.length > 60" class="text-danger">Address cannot be longer than 60
+                        characters.</div>
                 </ng-template>
             </td>
         </ng-container>
@@ -89,6 +116,8 @@
                 </ng-container>
                 <ng-template #editCell>
                     <input [(ngModel)]="supplier.City" class="form-control" placeholder="City" />
+                    <div *ngIf="supplier.City.length > 15" class="text-danger">City cannot be longer than 15
+                        characters.</div>
                 </ng-template>
             </td>
         </ng-container>
@@ -101,6 +130,8 @@
                 </ng-container>
                 <ng-template #editCell>
                     <input [(ngModel)]="supplier.Region" class="form-control" placeholder="Region" />
+                    <div *ngIf="supplier.Region.length > 15" class="text-danger">Region cannot be longer than 15
+                        characters.</div>
                 </ng-template>
             </td>
         </ng-container>
@@ -113,6 +144,8 @@
                 </ng-container>
                 <ng-template #editCell>
                     <input [(ngModel)]="supplier.PostalCode" class="form-control" placeholder="Postal Code" />
+                    <div *ngIf="supplier.PostalCode.length > 10" class="text-danger">Postal Code cannot be longer than
+                        10 characters.</div>
                 </ng-template>
             </td>
         </ng-container>
@@ -125,6 +158,8 @@
                 </ng-container>
                 <ng-template #editCell>
                     <input [(ngModel)]="supplier.Country" class="form-control" placeholder="Country" />
+                    <div *ngIf="supplier.Country.length > 15" class="text-danger">Country cannot be longer than 15
+                        characters.</div>
                 </ng-template>
             </td>
         </ng-container>
@@ -137,6 +172,8 @@
                 </ng-container>
                 <ng-template #editCell>
                     <input [(ngModel)]="supplier.Phone" class="form-control" placeholder="Phone" />
+                    <div *ngIf="supplier.Phone.length > 24" class="text-danger">Phone cannot be longer than 24
+                        characters.</div>
                 </ng-template>
             </td>
         </ng-container>
@@ -149,6 +186,8 @@
                 </ng-container>
                 <ng-template #editCell>
                     <input [(ngModel)]="supplier.Fax" class="form-control" placeholder="Fax" />
+                    <div *ngIf="supplier.Fax.length > 24" class="text-danger">Fax cannot be longer than 24
+                        characters.</div>
                 </ng-template>
             </td>
         </ng-container>
@@ -174,7 +213,7 @@
                     Cancel
                     <span class="iconify" data-icon="ic:twotone-cancel"></span>
                 </button>
-                <button class="btn btn-outline-success" (click)="saveSupplier()" *ngIf="supplier.isEditing">
+                <button class="btn btn-outline-success" (click)="saveSupplierEdited()" *ngIf="supplier.isEditing">
                     Save
                     <span class="iconify" data-icon="ic:twotone-check-box"></span>
                 </button>
